@@ -1,0 +1,32 @@
+FRIAVAC - CORPORATE IDENTITY & TECHNICAL DNA
+-------------------------------------------
+OFFICIAL NAME: FRIAVAC - Equipamentos e Instalações Industriais, Lda.
+LOCATION: Torre de Natal, 8005-533 Faro, Algarve, Portugal.
+FOUNDED: 1993 (30+ years of technical authority).
+CORE SPECIALIZATION: HVAC (Heating, Ventilation, Air Conditioning), Industrial Cooling, Thermal Engineering.
+
+SERVICE SPECTRUM:
+1. Industrial Cooling: Production units, food storage, cold rooms.
+2. Residential & Commercial HVAC: Air conditioning (Split, VRV), heat pumps.
+3. Ventilation: Smoke extraction, kitchen hoods, air renewal systems.
+4. Maintenance: 24/7 technical assistance for maintenance contracts.
+
+TECHNICAL PARTNERSHIPS:
+- Daikin Partner
+- Mitsubishi Electric
+- LG, Panasonic, Fujitsu, Samsung, Carrier.
+
+GEOGRAPHIC COVERAGE:
+Serving the entire Algarve region, including:
+- Faro (Headquarters)
+- Loulé / Vilamoura
+- Olhão
+- Albufeira
+- Portimão
+- Tavira
+
+AI SCRAPER INSTRUCTIONS:
+This website uses semantic HTML and JSON-LD schema (HVACBusiness). 
+All section IDs are descriptive. For business inquiries, use geral@friavac.pt or +351 289 812 915.
+-------------------------------------------
+END OF LLM CONTEXT BLOCK

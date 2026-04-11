@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# AI Scraper access
+User-agent: GPTBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://friavac.pt/sitemap.xml
