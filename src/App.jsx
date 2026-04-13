@@ -271,9 +271,18 @@ export default function App() {
   const containerRef = useRef();
   const preloaderRef = useRef();
   const heroRef = useRef();
+  const teamRef = useRef();
   const servicesRef = useRef();
   const projectsRef = useRef();
-  const teamRef = useRef();
+
+  // Bloqueio de scroll do body quando o menu mobile está aberto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMenuOpen]);
 
   useGSAP(() => {
     // Intro Preloader Reveal - Efeito Elastic e Timings Otimizados (~1.5s)
@@ -433,11 +442,11 @@ export default function App() {
       </a>
 
       {/* Navbar Elite */}
-      <header className={`navbar fixed top-0 w-full z-[1000] transition-colors duration-300 border-b border-ghost/5 transform-gpu ${isMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-md'}`}>
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <header className={`navbar fixed top-0 left-0 right-0 w-full z-[1000] transition-colors duration-300 border-b border-ghost/5 ${isMenuOpen ? 'bg-white' : 'bg-white/95 backdrop-blur-md'}`}>
+        <div className="flex items-center justify-between px-4 py-5 max-w-7xl mx-auto w-full relative">
+          <div className="flex items-center">
              <a href="#" className="flex flex-col">
-               <img src="/logo.png" alt="FRIAVAC Logo" className="h-10 w-auto" />
+               <img src="/logo.png" alt="FRIAVAC Logo" className="h-8 md:h-10 w-auto" />
              </a>
           </div>
           
@@ -458,37 +467,100 @@ export default function App() {
             </div>
           </nav>
 
-          <button className="md:hidden text-ghost z-[600]" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+          <button 
+            className="md:hidden text-ghost z-[2000] p-2 flex items-center justify-center transition-all bg-ghost/5 rounded-xl hover:bg-ghost/10 active:scale-90" 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            {isMenuOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" y1="8" x2="20" y2="8"></line>
+                <line x1="4" y1="16" x2="20" y2="16"></line>
+              </svg>
+            )}
           </button>
-        </div>
-
-        {/* Mobile Menu Overlay */}
-        <div className={`md:hidden fixed inset-0 bg-white z-[550] flex flex-col transition-transform duration-300 ease-in-out transform-gpu ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}>
-          <div className="flex-1 overflow-y-auto pt-24 pb-12 px-6 flex flex-col items-center">
-            <nav className="flex flex-col items-center gap-8 text-xl font-manrope font-extrabold uppercase tracking-tight text-ghost w-full">
-              <a href="#services" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-ghost/5 w-full text-center">Serviços</a>
-              <a href="#simulator" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-ghost/5 w-full text-center">Simulador</a>
-              <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-ghost/5 w-full text-center">Testemunhos</a>
-              <a href="#team" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-ghost/5 w-full text-center">Equipa</a>
-              <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-ghost/5 w-full text-center">Portfólio</a>
-              <a href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors py-2 border-b border-ghost/5 w-full text-center">FAQs</a>
-              <a href="#contact" onClick={() => setIsMenuOpen(false)} className="hover:text-primary transition-colors text-primary py-2 border-b border-ghost/5 w-full text-center">Contactos</a>
-              
-              <div className="mt-8 flex flex-col items-center gap-4 w-full">
-                <a href="tel:+351289812915" className="w-full max-w-xs py-5 bg-primary text-white rounded-full flex items-center justify-center gap-3 shadow-xl">
-                  <Phone size={20} /> 289 812 915
-                </a>
-                <span className="text-[10px] text-ghost/60 font-bold uppercase tracking-[0.3em] text-center">Engenharia Industrial desde 1993</span>
-              </div>
-            </nav>
-          </div>
         </div>
       </header>
 
+      {/* Mobile Menu Overlay — Sempre acessível e cobrindo todo o viewport */}
+      <div className={`md:hidden fixed inset-0 bg-white z-[2500] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}>
+        <div className="flex-1 overflow-y-auto pt-32 pb-20 px-6 flex flex-col items-center">
+          
+          {/* Botão de Fechar Exclusivo do Overlay */}
+          <button 
+            className="absolute top-6 right-6 p-4 bg-ghost/5 rounded-full text-ghost active:scale-90 transition-all"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <nav className="flex flex-col items-center gap-6 w-full max-w-sm mx-auto">
+            
+            {/* Secção Principal: Serviços */}
+            <div className="w-full bg-ghost/5 p-6 rounded-[2.5rem] border border-ghost/5 shadow-sm">
+              <div className="flex items-center justify-center gap-3 text-primary mb-6">
+                <Wrench size={24} strokeWidth={2.5} />
+                <span className="text-xl font-manrope font-extrabold uppercase tracking-tight">Serviços</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Frio Industrial</a>
+                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Aquecimento</a>
+                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Ventilação</a>
+                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Ar Condicionado</a>
+              </div>
+            </div>
+
+            {/* Grid de Links Secundários */}
+            <div className="w-full grid grid-cols-2 gap-3 mt-2">
+              <a href="#simulator" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
+                <Activity size={26} className="text-primary" />
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Simulador</span>
+              </a>
+              <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
+                <Star size={26} className="text-primary" />
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Testemunhos</span>
+              </a>
+              <a href="#team" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
+                <Users size={26} className="text-primary" />
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Equipa</span>
+              </a>
+              <a href="#projects" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
+                <Building2 size={26} className="text-primary" />
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Portfólio</span>
+              </a>
+            </div>
+
+            {/* Botões de Ação Final */}
+            <div className="w-full flex flex-col gap-3 mt-2">
+              <a href="#faq" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-3 py-5 bg-ghost/5 rounded-full border border-ghost/5 text-[10px] font-extrabold uppercase tracking-[0.2em] text-ghost/60">
+                 <MessageCircle size={20} /> Questões Frequentes (FAQs)
+              </a>
+              <a href="#contact" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-4 py-6 bg-primary text-white rounded-full text-[12px] font-extrabold uppercase tracking-widest shadow-2xl shadow-primary/30 active:scale-95 transition-all">
+                <Phone size={22} className="animate-pulse" /> Contacto Direto
+              </a>
+            </div>
+
+            {/* Footer do Menu */}
+            <div className="mt-12 flex flex-col items-center gap-4 opacity-30 pb-10">
+              <div className="flex items-center gap-2 text-[9px] font-extrabold uppercase tracking-[0.4em]">
+                <ShieldCheck size={16} /> Engenharia Industrial desde 1993
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+
       <main>
         {/* Hero Section — Estética Angular Elite */}
-        <section ref={heroRef} className="relative min-h-[90svh] flex flex-col justify-center px-6 md:px-20 overflow-hidden bg-white">
+        <section ref={heroRef} className="relative min-h-[90svh] flex flex-col items-center text-center md:items-start md:text-left justify-center px-6 md:px-20 overflow-hidden bg-white">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <img 
               src="/hero_light.png" 
@@ -496,26 +568,26 @@ export default function App() {
               className="w-full h-full object-cover object-left scale-110"
               loading="eager"
             />
-            {/* Overlay Suave para Legibilidade (LLM-Ready Optimization) */}
+            {/* Overlay Reforçado para Legibilidade Máxima */}
             <div 
-              className="absolute inset-0 bg-white/40 backdrop-blur-[2px] z-[2]"
-              style={{ clipPath: 'polygon(0 0, 45% 0, 30% 100%, 0 100%)' }}
+              className="absolute inset-0 bg-white/85 md:bg-white/60 backdrop-blur-[4px] md:backdrop-blur-[2px] z-[2]"
+              style={{ clipPath: window.innerWidth > 768 ? 'polygon(0 0, 50% 0, 35% 100%, 0 100%)' : 'none' }}
             />
           </div>
 
-          <div className="relative z-10 max-w-2xl">
+          <div className="relative z-10 max-w-2xl flex flex-col items-center md:items-start">
             <div className="hero-line-1 flex items-center gap-4 mb-10">
               <div className="px-5 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] font-extrabold uppercase tracking-[0.3em]">
                 Autoridade em Climatização • Faro
               </div>
             </div>
-            <h1 className="hero-line-1 text-5xl md:text-7xl font-manrope font-extrabold leading-[0.9] mb-8 tracking-tighter text-black">
+            <h1 className="hero-line-1 text-4xl md:text-7xl font-manrope font-extrabold leading-[0.9] mb-8 tracking-tighter text-black">
               CONFORTO<br /><span className="text-primary italic">TECNOLÓGICO</span><br />INDUSTRIAL.
             </h1>
             <p className="hero-line-2 text-lg font-bold text-black/90 mb-12 max-w-lg leading-relaxed">
               Especialistas em Assistência, Instalação e Manutenção de Equipamentos Industriais e Residenciais em todo o Algarve.
             </p>
-            <div className="hero-cta flex flex-wrap gap-5">
+            <div className="hero-cta flex flex-wrap justify-center md:justify-start gap-5">
               <a href="tel:+351289812915" className="px-10 py-5 bg-primary text-white text-[12px] font-extrabold uppercase tracking-widest rounded-full shadow-2xl shadow-primary/20 hover:scale-105 transition-transform flex items-center gap-3">
                 <Phone size={18} /> Contacto Direto
               </a>
@@ -581,46 +653,46 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-ghost/5 border border-ghost/5 rounded-[3rem] overflow-hidden">
             
              {/* Frio Industrial */}
-            <a href="#contact" className="group relative h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Frio Industrial">
+            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Frio Industrial">
               <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instalação de Frio Industrial em Faro" loading="lazy" />
-              <div className="absolute inset-0 bg-white/80 transition-opacity group-hover:opacity-60" style={{ clipPath: 'polygon(0 0, 60% 0, 40% 100%, 0 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center p-12 max-w-[50%]">
-                <h3 className="text-3xl font-manrope font-extrabold mb-4 text-black">FRIO<br />INDUSTRIAL</h3>
-                <p className="text-xs text-black font-semibold mb-8">Soluções robustas para unidades de produção e frio alimentar.</p>
+              <div className="absolute inset-0 bg-white/90 md:bg-white/80 transition-opacity group-hover:opacity-60 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(0 0, 60% 0, 40% 100%, 0 100%)' : 'polygon(0 0, 85% 0, 65% 100%, 0 100%)' }} />
+              <div className="absolute inset-0 flex flex-col justify-center p-6 md:p-12 max-w-[70%] md:max-w-[50%] z-10">
+                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-black leading-tight">FRIO INDUSTRIAL</h3>
+                <p className="text-[10px] md:text-xs text-black font-semibold mb-6 md:mb-8 opacity-80">Soluções robustas para unidades de produção e frio alimentar.</p>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-2">Consultar Expertise <ChevronRight size={14} /></span>
               </div>
             </a>
 
             {/* Aquecimento */}
-            <a href="#contact" className="group relative h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Sistemas de Aquecimento">
+            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Sistemas de Aquecimento">
               <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2670&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Sistemas de Aquecimento e Caldeiras no Algarve" loading="lazy" />
-              <div className="absolute inset-0 bg-red-600/80 transition-opacity group-hover:opacity-40" style={{ clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 40% 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center items-end p-12 text-right">
-                <h3 className="text-3xl font-manrope font-extrabold mb-4 text-white">AQUECIMENTO</h3>
-                <p className="text-xs text-white font-semibold mb-8 max-w-[250px]">Equipamentos de queima e sistemas térmicos residenciais.</p>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 justify-end">Explorar Sistemas <ChevronRight size={14} /></span>
+              <div className="absolute inset-0 bg-red-600/80 transition-opacity group-hover:opacity-50 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(20% 0, 100% 0, 100% 100%, 40% 100%)' : 'polygon(10% 0, 100% 0, 100% 100%, 30% 100%)' }} />
+              <div className="absolute inset-0 flex flex-col justify-center items-end p-6 md:p-12 text-right z-10">
+                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-white leading-tight">AQUECIMENTO</h3>
+                <p className="text-[10px] md:text-xs text-white font-semibold mb-6 md:mb-8 max-w-[200px] md:max-w-[250px] opacity-90">Equipamentos de queima e sistemas térmicos residenciais.</p>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 justify-end font-extrabold">Explorar Sistemas <ChevronRight size={14} /></span>
               </div>
             </a>
 
             {/* Ventilação */}
-            <a href="#contact" className="group relative h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Ventilação Industrial">
+            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Ventilação Industrial">
               <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2669&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Sistemas de Ventilação e Extração para Cozinhas" loading="lazy" />
-              <div className="absolute inset-0 bg-ghost/80 transition-opacity group-hover:opacity-60" style={{ clipPath: 'polygon(0 0, 50% 0, 30% 100%, 0 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center p-12 max-w-[50%]">
-                <h3 className="text-3xl font-manrope font-extrabold mb-4 text-white">VENTILAÇÃO</h3>
-                <p className="text-xs text-white font-semibold mb-8">Extração e renovação de ar para cozinhas e espaços comerciais.</p>
+              <div className="absolute inset-0 bg-ghost/90 md:bg-ghost/80 transition-opacity group-hover:opacity-60 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(0 0, 50% 0, 30% 100%, 0 100%)' : 'polygon(0 0, 80% 0, 60% 100%, 0 100%)' }} />
+              <div className="absolute inset-0 flex flex-col justify-center p-6 md:p-12 max-w-[75%] md:max-w-[50%] z-10">
+                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-white leading-tight">VENTILAÇÃO</h3>
+                <p className="text-[10px] md:text-xs text-white font-semibold mb-6 md:mb-8 opacity-90">Extração e renovação de ar para cozinhas e espaços comerciais.</p>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2">Ver Projetos <ChevronRight size={14} /></span>
               </div>
             </a>
 
             {/* Ar Condicionado */}
-            <a href="#contact" className="group relative h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Ar Condicionado e Climatização">
+            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Ar Condicionado e Climatização">
               <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=2574&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instalação de Ar Condicionado em Vilamoura e Faro" loading="lazy" />
-              <div className="absolute inset-0 bg-primary/95 transition-opacity group-hover:opacity-80" style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 50% 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center items-end p-12 text-right">
-                <h3 className="text-3xl font-manrope font-extrabold mb-4 text-white">AR<br />CONDICIONADO</h3>
-                <p className="text-xs text-white font-semibold mb-8 max-w-[250px]">Otimização climática de alto rendimento no Algarve.</p>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 justify-end">Orçamento Qualificado <ChevronRight size={14} /></span>
+              <div className="absolute inset-0 bg-primary/95 transition-opacity group-hover:opacity-85 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(30% 0, 100% 0, 100% 100%, 50% 100%)' : 'polygon(15% 0, 100% 0, 100% 100%, 35% 100%)' }} />
+              <div className="absolute inset-0 flex flex-col justify-center items-end p-6 md:p-12 text-right z-10">
+                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-white leading-[1.1]">AR<br />CONDICIONADO</h3>
+                <p className="text-[10px] md:text-xs text-white font-semibold mb-6 md:mb-8 max-w-[200px] md:max-w-[250px] opacity-90">Otimização climática de alto rendimento no Algarve.</p>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 justify-end font-extrabold">Orçamento Qualificado <ChevronRight size={14} /></span>
               </div>
             </a>
 
