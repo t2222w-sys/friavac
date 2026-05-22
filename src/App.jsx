@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { CONFIG } from './config';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  ChevronRight, 
-  Clock, 
-  Star, 
-  Wind,
-  ShieldCheck,
-  Award,
-  CheckCircle2,
-  XCircle,
-  Thermometer,
-  Sun,
-  CloudSun,
-  Wrench,
-  Activity,
-  ThumbsUp,
-  MessageSquare
-} from 'lucide-react';
+import Phone from 'lucide-react/dist/esm/icons/phone';
+import Mail from 'lucide-react/dist/esm/icons/mail';
+import MapPin from 'lucide-react/dist/esm/icons/map-pin';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import Star from 'lucide-react/dist/esm/icons/star';
+import Wind from 'lucide-react/dist/esm/icons/wind';
+import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
+import Award from 'lucide-react/dist/esm/icons/award';
+import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
+import XCircle from 'lucide-react/dist/esm/icons/x-circle';
+import Thermometer from 'lucide-react/dist/esm/icons/thermometer';
+import Sun from 'lucide-react/dist/esm/icons/sun';
+import CloudSun from 'lucide-react/dist/esm/icons/cloud-sun';
+import Wrench from 'lucide-react/dist/esm/icons/wrench';
+import Activity from 'lucide-react/dist/esm/icons/activity';
+import ThumbsUp from 'lucide-react/dist/esm/icons/thumbs-up';
+import MessageSquare from 'lucide-react/dist/esm/icons/message-square';
 
 // --- Logotipo Dinâmico em SVG (Garante que nunca há imagens partidas) ---
 const DynamicLogo = ({ light = false }) => {
@@ -301,13 +299,7 @@ Mensagem: ${formData.mensagem}`;
           <div className="absolute inset-0 z-0">
             {/* Imagem de fundo moderna e abstrata focada em ar condicionado */}
             <img 
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1600&auto=format&fit=crop" 
-              srcSet="
-                https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=640&auto=format&fit=crop 640w,
-                https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1024&auto=format&fit=crop 1024w,
-                https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1600&auto=format&fit=crop 1600w
-              "
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1600px"
+              src="/hero-bg.jpg" 
               alt="Instalação de Ar Condicionado" 
               className="w-full h-full object-cover object-center opacity-10"
               loading="eager"
