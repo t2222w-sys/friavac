@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&family=Montserrat:ital,wght@0,100;0,400;0,700;1,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -42,7 +40,7 @@ html {
   }
 }
 
-/* Custom Utilities Elite */
+/* Custom Utilities */
 .bg-primary { background-color: var(--primary); }
 .text-primary { color: var(--primary); }
 .bg-ghost { background-color: var(--ghost); }
@@ -50,7 +48,7 @@ html {
 .bg-accent { background-color: var(--accent); }
 .text-accent { color: var(--accent); }
 
-/* Discovery Quiz Styling Elite */
+/* Discovery Quiz Styling */
 .quiz-option {
   @apply p-8 border-2 border-black/5 rounded-[2.5rem] transition-all cursor-pointer bg-white hover:border-primary/30 hover:shadow-2xl;
 }
@@ -58,7 +56,7 @@ html {
   @apply border-primary bg-primary/5 shadow-inner;
 }
 
-/* Animations Elite */
+/* Animations */
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -75,17 +73,17 @@ html {
 }
 
 .marquee-track {
-  animation: marquee 20s linear infinite;
+  animation: marquee 35s linear infinite;
 }
 
 /* Reduzir ainda mais em mobile se necessário para maior fluidez */
 @media (max-width: 768px) {
   .marquee-track {
-    animation: marquee 15s linear infinite;
+    animation: marquee 28s linear infinite;
   }
 }
 
-/* Scrollbar Custom Elite */
+/* Scrollbar Custom */
 ::-webkit-scrollbar {
   width: 6px;
 }

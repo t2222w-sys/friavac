@@ -1,9 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-import DiscoveryQuiz from './components/DiscoveryQuiz';
-import EliteStatsSection from './components/EliteStatsSection';
+import React, { useState, useEffect } from 'react';
+import { CONFIG } from './config';
 import { 
   Phone, 
   Mail, 
@@ -11,234 +7,103 @@ import {
   ChevronRight, 
   Clock, 
   Star, 
-  Menu, 
-  X,
   Wind,
   ShieldCheck,
-  Settings,
-  Cpu,
-  Activity,
-  Zap,
-  MessageCircle,
-  Building2,
-  Home,
-  Wrench,
+  Award,
+  CheckCircle2,
+  XCircle,
   Thermometer,
   Sun,
   CloudSun,
-  Users,
-  Award,
-  CheckCircle2,
-  ChevronDown,
-  Globe,
-  MessageSquare,
-  Shield,
-  ZapOff,
-  ClipboardCheck,
-  Send,
-  Calendar
+  Wrench,
+  Activity,
+  ThumbsUp,
+  MessageSquare
 } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-// --- Componentes de Card Interativo (Micro-UIs) ---
-
-const DiagnosticShuffler = () => {
-  const container = useRef();
-  const [items, setItems] = useState([
-    "Instalações Rápidas",
-    "Garantia de Qualidade",
-    "Limpeza Após Trabalho"
-  ]);
-
-  useGSAP(() => {
-    // --- Injeção de Schema.org para Otimização de IA (LLM-Ready) ---
-    const schemaId = "schema-org-data";
-    if (!document.getElementById(schemaId)) {
-      const schemaData = {
-        "@context": "https://schema.org",
-        "@type": "HVACBusiness",
-        "name": "FRIAVAC - Equipamentos e Instalações Industriais, Lda.",
-        "alternateName": "FRIAVAC Algarve",
-        "description": "Especialistas em Ar Condicionado e Climatização Industrial e Residencial em Faro e todo o Algarve. Instalação, manutenção e assistência técnica AVAC.",
-        "url": "https://www.friavac.pt",
-        "logo": "https://www.friavac.pt/logo.png",
-        "image": "https://www.friavac.pt/og-image.jpg",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Torre de Natal",
-          "addressLocality": "Faro",
-          "addressRegion": "Algarve",
-          "postalCode": "8005-533",
-          "addressCountry": "PT"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 37.0420389,
-          "longitude": -7.9017901
-        },
-        "telephone": "+351289812915",
-        "email": "geral@friavac.pt",
-        "priceRange": "€€-€€€",
-        "openingHours": "Mo-Fr 08:30-17:30",
-        "areaServed": {
-          "@type": "AdministrativeArea",
-          "name": "Algarve"
-        }
-      };
-
-      const script = document.createElement("script");
-      script.id = schemaId;
-      script.type = "application/ld+json";
-      script.innerHTML = JSON.stringify(schemaData);
-      document.head.appendChild(script);
-    }
-
-    const interval = setInterval(() => {
-      setItems(prev => {
-        const next = [...prev];
-        next.unshift(next.pop());
-        return next;
-      });
-
-      gsap.fromTo(".shuffle-card", 
-        { y: 20, opacity: 0, scale: 0.9 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.7)", stagger: 0.1 }
-      );
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, { scope: container });
-
+// --- Logotipo Dinâmico em SVG (Garante que nunca há imagens partidas) ---
+const DynamicLogo = ({ light = false }) => {
   return (
-    <div ref={container} className="relative h-48 w-full flex items-center justify-center overflow-hidden">
-      {items.map((item, idx) => (
-        <div key={item} 
-          className="shuffle-card absolute w-4/5 p-4 rounded-xl border border-ghost/5 bg-white/40 backdrop-blur-md shadow-lg"
-          style={{ 
-            zIndex: 3 - idx, 
-            transform: `translateY(${idx * 12}px) scale(${1 - idx * 0.05})`,
-            opacity: 1 - idx * 0.3
-          }}
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs font-mono uppercase tracking-widest text-ghost/40">{item}</span>
-          </div>
-        </div>
-      ))}
+    <div className="flex items-center gap-2">
+      <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-transform hover:rotate-12 ${light ? 'bg-white text-primary' : 'bg-primary text-white'}`}>
+        <Wind size={20} className="animate-pulse" />
+      </div>
+      <span className={`font-manrope font-extrabold text-lg tracking-wider ${light ? 'text-white' : 'text-dark'}`}>
+        {CONFIG.companyName}
+      </span>
     </div>
   );
 };
 
-const TelemetryTypewriter = () => {
-  const [text, setText] = useState("");
-  const fullText = "A monitorizar eficiência energética... Filtros limpos e verificados... Fluxo de ar otimizado em Faro.";
-  
-  useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      setText(fullText.slice(0, i));
-      i = (i + 1) % (fullText.length + 1);
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="p-4 bg-white/60 border border-ghost/5 rounded-xl font-mono text-[10px] leading-relaxed text-accent/80">
-      <div className="flex items-center gap-2 mb-2 border-b border-ghost/5 pb-1">
-        <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-        <span className="uppercase text-[8px] tracking-tighter text-ghost/40">Estado do Sistema - Manutenção Realizada</span>
-      </div>
-      <div>{text}<span className="inline-block w-1 h-3 bg-accent ml-1 animate-pulse" /></div>
-    </div>
-  );
-};
-
-const ProtocolScheduler = () => {
-  const cursorRef = useRef();
-  const scope = useRef();
-  
-  useGSAP(() => {
-    const tl = gsap.timeline({ repeat: -1 });
-    tl.to(cursorRef.current, { x: 40, y: 30, duration: 1.5, ease: "power2.inOut" })
-      .to(cursorRef.current, { scale: 0.8, duration: 0.2 })
-      .to(".grid-cell-active", { backgroundColor: "#0077B6", opacity: 0.2, duration: 0.3 })
-      .to(cursorRef.current, { scale: 1, duration: 0.2 })
-      .to(cursorRef.current, { x: 80, y: 10, duration: 1, ease: "power2.inOut" })
-      .to(cursorRef.current, { opacity: 0, duration: 0.5 })
-      .set(cursorRef.current, { x: 0, y: 0, opacity: 1 })
-      .to(".grid-cell-active", { backgroundColor: "transparent", duration: 0.1 });
-  }, { scope });
-
-  return (
-    <div ref={scope} className="relative p-4 bg-white/40 rounded-xl border border-ghost/5 aspect-square flex flex-col justify-between shadow-inner">
-      <div className="grid grid-cols-4 gap-2 opacity-10">
-        {[...Array(12)].map((_, i) => (
-          <div key={i} className={`h-4 rounded-sm border border-ghost/20 ${i === 5 ? 'grid-cell-active' : ''}`} />
-        ))}
-      </div>
-      <div ref={cursorRef} className="absolute top-8 left-8 text-accent pointer-events-none">
-        <div className="text-[8px] absolute -top-4 -right-8 bg-accent text-white px-1 font-bold">AGENDADO</div>
-        <ChevronRight size={16} strokeWidth={3} />
-      </div>
-      <a href="tel:+351289812915" className="w-full py-2 bg-accent/5 border border-accent/20 text-accent text-[10px] font-bold uppercase tracking-widest rounded-lg text-center">
-        Marcar Revisão
-      </a>
-    </div>
-  );
-};
-
+// --- Componente do Simulador de BTUs Otimizado ---
 const BTUSimulator = () => {
-  const [m2, setM2] = useState(20);
+  const [m2, setM2] = useState(25);
   const [isSunny, setIsSunny] = useState(false);
+  
+  // Cálculo padrão ajustado para o clima quente de Portugal (Faro/Algarve)
   const btu = m2 * (isSunny ? 800 : 600);
 
   return (
-    <div className="p-8 bg-white border border-ghost/5 rounded-[2.5rem] shadow-2xl shadow-accent/5">
-      <div className="flex items-center gap-3 mb-8">
-        <Thermometer className="text-accent" />
-        <h3 className="text-xl font-bold">Simulador de Ar Condicionado</h3>
+    <div className="p-6 sm:p-8 bg-white border border-graphite rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+          <Thermometer size={22} />
+        </div>
+        <h3 className="text-xl font-manrope font-extrabold text-dark">Simulador de Ar Condicionado</h3>
       </div>
       
-      <div className="space-y-8">
+      <div className="space-y-6">
         <div>
-          <div className="flex justify-between mb-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-ghost/40">Tamanho da Divisão</span>
-            <span className="font-bold text-accent">{m2} m²</span>
+          <div className="flex justify-between mb-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-dark/50">Área do Espaço</span>
+            <span className="font-extrabold text-primary text-sm">{m2} m²</span>
           </div>
           <input 
             type="range" 
             min="10" 
             max="100" 
             value={m2} 
-            onChange={(e) => setM2(e.target.value)}
-            className="w-full accent-accent h-1 bg-ghost/5 rounded-full appearance-none cursor-pointer"
+            onChange={(e) => setM2(Number(e.target.value))}
+            className="w-full accent-primary h-2 bg-graphite rounded-full appearance-none cursor-pointer"
           />
+          <div className="flex justify-between text-[10px] text-dark/30 font-mono mt-1">
+            <span>10 m²</span>
+            <span>50 m²</span>
+            <span>100 m²</span>
+          </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-primary/50 rounded-xl border border-ghost/5">
+        <div className="flex items-center justify-between p-4 bg-light rounded-2xl border border-graphite">
            <div className="flex items-center gap-3">
-             {isSunny ? <Sun className="text-amber-500" /> : <CloudSun className="text-ghost/30" />}
-             <span className="text-sm font-semibold">Tem sol direto no Verão?</span>
+             {isSunny ? <Sun className="text-amber-500 animate-spin-slow" size={20} /> : <CloudSun className="text-primary/60" size={20} />}
+             <div>
+               <span className="text-xs font-bold text-dark block">Radiação Solar Direta</span>
+               <span className="text-[10px] text-dark/40">O espaço apanha sol direto no Verão?</span>
+             </div>
            </div>
            <button 
              onClick={() => setIsSunny(!isSunny)}
-             className={`w-12 h-6 rounded-full transition-colors relative ${isSunny ? 'bg-accent' : 'bg-ghost/10'}`}
+             className={`w-12 h-6 rounded-full transition-colors relative focus:outline-none ${isSunny ? 'bg-primary' : 'bg-graphite'}`}
+             aria-label="Alternar radiação solar"
            >
-             <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${isSunny ? 'left-7' : 'left-1'}`} />
+             <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${isSunny ? 'left-7' : 'left-1'}`} />
            </button>
         </div>
 
-        <div className="pt-8 border-t border-ghost/5 text-center">
-           <div className="text-[10px] font-mono text-ghost/40 uppercase mb-2">Sugestão de Potência</div>
-           <div className="text-5xl font-extrabold tracking-tighter text-ghost mb-2">
-             {btu.toLocaleString()} <span className="text-xl text-accent">BTUs</span>
+        <div className="pt-6 border-t border-graphite text-center">
+           <div className="text-[10px] font-mono text-dark/50 uppercase tracking-widest mb-1">Potência Recomendada</div>
+           <div className="text-4xl font-manrope font-extrabold tracking-tight text-dark mb-1">
+             {btu.toLocaleString()} <span className="text-lg text-primary font-bold">BTUs</span>
            </div>
-           <p className="text-[10px] text-ghost/30 italic">Cálculo ideal para o clima quente do Algarve.</p>
+           <p className="text-[10px] text-dark/40 italic">Cálculo ideal para as exigências térmicas nacionais.</p>
         </div>
 
-        <a href="tel:+351289812915" className="w-full block py-4 bg-ghost text-white text-center text-xs font-bold uppercase tracking-widest rounded-xl hover:scale-[1.02] transition-transform">
+        <a 
+          href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Usei o vosso simulador online e calculei que preciso de um ar condicionado de aproximadamente ${btu.toLocaleString()} BTUs para uma área de ${m2}m² (Exposição solar direta: ${isSunny ? 'Sim' : 'Não'}). Gostaria de obter um orçamento gratuito.`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full block py-4 bg-primary text-white text-center text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all shadow-md hover:shadow-lg active:scale-[0.99]"
+        >
           Pedir Orçamento Grátis
         </a>
       </div>
@@ -246,34 +111,63 @@ const BTUSimulator = () => {
   );
 };
 
+// --- Componente da FAQ Simplificada ---
 const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-ghost/5 last:border-0 overflow-hidden">
+    <div className="border-b border-graphite last:border-0 overflow-hidden bg-white px-6 rounded-2xl border mb-3">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-4 flex items-center justify-between text-left group"
+        className="w-full py-5 flex items-center justify-between text-left focus:outline-none group"
       >
-        <span className="text-base font-bold group-hover:text-accent transition-colors">{question}</span>
-        <ChevronDown className={`text-accent transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="text-sm md:text-base font-bold text-dark group-hover:text-primary transition-colors">{question}</span>
+        <span className={`text-primary text-xl font-bold transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}>+</span>
       </button>
-      <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 pb-4 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <p className="text-ghost/50 leading-relaxed text-[13px]">{answer}</p>
+      <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-48 pb-5 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <p className="text-dark/70 text-xs md:text-sm leading-relaxed">{answer}</p>
+      </div>
+    </div>
+  );
+};
+
+// --- Banner Informativo Rotativo (Ticker) ---
+const InfoBanner = () => {
+  const items = [
+    `Técnicos de Climatização Licenciados (F-Gases)`,
+    `Orçamentos Gratuitos e Sem Compromisso no ${CONFIG.region}`,
+    `Instalações Rápidas com Garantia Oficial do Fabricante`,
+    `Máquinas de Alta Eficiência Energética A++ / A+++`,
+  ];
+  
+  // Duplicamos a lista para criar o efeito infinito contínuo do marquee
+  const itemsList = [...items, ...items, ...items, ...items];
+
+  return (
+    <div className="bg-dark text-white/90 py-2 overflow-hidden border-b border-white/5 relative z-[1001] w-full select-none">
+      <div className="flex w-max">
+        <div className="marquee-track flex gap-12 text-[10px] md:text-xs font-mono uppercase tracking-wider whitespace-nowrap">
+          {itemsList.map((item, idx) => (
+            <span key={idx} className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
 // --- App Principal ---
-
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const containerRef = useRef();
-  const preloaderRef = useRef();
-  const heroRef = useRef();
-  const teamRef = useRef();
-  const servicesRef = useRef();
-  const projectsRef = useRef();
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    nome: '',
+    telefone: '',
+    localidade: '',
+    mensagem: ''
+  });
 
   // Bloqueio de scroll do body quando o menu mobile está aberto
   useEffect(() => {
@@ -284,752 +178,840 @@ export default function App() {
     }
   }, [isMenuOpen]);
 
-  useGSAP(() => {
-    // Intro Preloader Reveal - Efeito Elastic e Timings Otimizados (~1.5s)
-    const tlIntro = gsap.timeline();
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Redireciona para o WhatsApp com os dados do formulário de forma amigável
+    const text = `Olá! Solicito um contacto para orçamento.
+Nome: ${formData.nome}
+Telefone: ${formData.telefone}
+Localidade: ${formData.localidade}
+Mensagem: ${formData.mensagem}`;
     
-    // Bloquear scroll no início
-    document.body.style.overflow = "hidden";
-
-    tlIntro.fromTo(".preloader-logo", 
-           { scale: 0.6, opacity: 0, y: 40 },
-           { scale: 1, opacity: 1, y: 0, duration: 0.8, ease: "elastic.out(1, 0.6)" }
-       )
-       .to(".preloader-branding", { opacity: 0.4, duration: 0.3 }, "-=0.2")
-       .to({}, { duration: 0.5 }) // Pausa fixa de 0.5s
-       .to(".preloader-logo", { y: -40, opacity: 0, duration: 0.3, ease: "power2.in" })
-       .to(preloaderRef.current, { 
-          yPercent: -100, 
-          duration: 0.6, // Saída mais agressiva
-          ease: "power4.inOut",
-          onComplete: () => {
-            document.body.style.overflow = "auto";
-          }
-       });
-
-    // Hero Section Animations - Sincronizado com o fim do preloader (~1.7s total)
-    const tl = gsap.timeline({ delay: 1.6 });
-    tl.from(".hero-line-1", { y: 40, opacity: 0, duration: 1, ease: "power3.out" })
-      .from(".hero-line-2", { y: 40, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.7")
-      .from(".hero-cta", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out", stagger: 0.2 }, "-=0.5");
-
-    // Scroll trigger for nav background
-    ScrollTrigger.create({
-      start: 'top -80',
-      onEnter: () => gsap.to(".navbar", { background: "rgba(255, 255, 255, 0.9)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(24, 24, 27, 0.05)", duration: 0.3 }),
-      onLeaveBack: () => gsap.to(".navbar", { background: "rgba(255, 255, 255, 0.7)", backdropFilter: "blur(15px)", borderBottom: "1px solid rgba(24, 24, 27, 0.02)", duration: 0.3 }),
-    });
-
-    // Brands Marquee
-    gsap.to(".marquee-track", {
-      xPercent: -50,
-      ease: "none",
-      duration: 35,
-      repeat: -1,
-    });
-
-    // Stacking Cards
-    const cards = gsap.utils.toArray('.stack-card');
-    cards.forEach((card, i) => {
-      if (i === cards.length - 1) return;
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top 10%",
-        endTrigger: ".protocol-section",
-        end: "bottom bottom",
-        pin: true,
-        pinSpacing: false,
-        scrub: true,
-        onUpdate: (self) => {
-          const scale = 1 - (self.progress * 0.1);
-          gsap.set(card, { scale, opacity: 1 - self.progress, filter: `blur(${self.progress * 10}px)` });
-        }
-      });
-    });
-
-    // Stats Counter Animation
-    const stats = gsap.utils.toArray('.stat-number');
-    stats.forEach(stat => {
-      const target = parseInt(stat.getAttribute('data-target'));
-      gsap.to(stat, {
-        innerText: target,
-        duration: 2,
-        snap: { innerText: 1 },
-        scrollTrigger: {
-          trigger: stat,
-          start: "top 90%",
-        }
-      });
-    });
-
-    // MAP SECTION REVEAL
-    gsap.from(".map-info-pane", {
-      x: -50,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: "#location",
-        start: "top 80%",
-      }
-    });
-
-    gsap.from(".map-visual-pane", {
-      x: 50,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: "#location",
-        start: "top 80%",
-      }
-    });
-
-
-    return () => {};
-  }, { scope: containerRef });
-
-
+    const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappUrl, '_blank');
+    setFormSubmitted(true);
+  };
 
   return (
-    <div ref={containerRef} className="noise-overlay font-sans text-ghost selection:bg-accent/20">
+    <div className="font-sans text-dark bg-light selection:bg-primary/20 min-h-screen relative">
       
-      {/* Preloader Premium */}
-      <div ref={preloaderRef} className="fixed inset-0 z-[2000] bg-white flex items-center justify-center overflow-hidden">
-        <div className="relative flex flex-col items-center">
-             <img 
-               src="/logo.png" 
-               alt="FRIAVAC Logo" 
-               className="preloader-logo w-48 md:w-64 h-auto opacity-0 translate-y-4" 
-             />
-             <div className="mt-8 overflow-hidden h-6">
-                <div className="preloader-branding text-accent font-sans text-[10px] font-bold tracking-[0.4em] uppercase opacity-0">
-                   Qualidade em Todo o Algarve
-                </div>
-             </div>
-        </div>
-      </div>
-      
-      {/* WhatsApp Premium Widget — Digital Elite 4-Layers */}
+      {/* Botão de WhatsApp Flutuante */}
       <a 
-        href="https://wa.me/351289812915?text=Olá, gostaria de pedir um orçamento qualificado para climatização no Algarve." 
-        className="whatsapp-float fixed bottom-6 right-6 z-[1000] w-[56px] h-[56px] transition-all hover:scale-110 active:scale-95"
+        href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`}
+        className="fixed bottom-6 right-6 z-[1000] w-[56px] h-[56px] transition-all hover:scale-110 active:scale-95 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl group"
         target="_blank" 
-        aria-label="Contacto por WhatsApp"
+        aria-label="Contacto Direto por WhatsApp"
+        rel="noopener noreferrer"
       >
-        <div className="relative w-full h-full">
-          {/* Anel de Pulsação Elite */}
-          <div className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
-          
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-2xl">
-            {/* 1. Base Verde Total (Exterior) */}
-            <path fill="#25D366" d="M12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.5 5.9L0 24l6.3-1.7c1.8 1 3.8 1.5 5.7 1.5 6.6 0 12-5.4 12-12s-5.4-12-12-12z"/>
-            
-            {/* 2. Camada Branca Interna (Escalonada) */}
-            <g transform="translate(0.6, 0.6) scale(0.95)">
-                <path fill="#FFF" d="M12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.5 5.9L0 24l6.3-1.7c1.8 1 3.8 1.5 5.7 1.5 6.6 0 12-5.4 12-12s-5.4-12-12-12z"/>
-            </g>
-            
-            {/* 3. Preenchimento Verde Central */}
-            <g transform="translate(1.2, 1.2) scale(0.9)">
-                <path fill="#25D366" d="M12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.5 5.9L0 24l6.3-1.7c1.8 1 3.8 1.5 5.7 1.5 6.6 0 12-5.4 12-12s-5.4-12-12-12z"/>
-            </g>
-            
-            {/* 4. Telefone Branco Final */}
-            <path fill="#FFF" d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5-.2-.1-.4-.1-.6-.1-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1.1 2.9 1.2 3.1.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/>
+        <span className="absolute right-14 bg-dark text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
+          Dúvidas? Fale Connosco
+        </span>
+        <div className="relative w-full h-full flex items-center justify-center">
+          <div className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25" />
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 fill-white drop-shadow-md">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.704 1.456h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
         </div>
       </a>
 
-      {/* Navbar Elite */}
-      <header className={`navbar fixed top-0 left-0 right-0 w-full z-[1000] transition-colors duration-300 border-b border-ghost/5 ${isMenuOpen ? 'bg-white' : 'bg-white/95 backdrop-blur-md'}`}>
-        <div className="flex items-center justify-between px-4 py-5 max-w-7xl mx-auto w-full relative">
-          <div className="flex items-center">
-             <a href="#" className="flex flex-col">
-               <img src="/logo.png" alt="FRIAVAC Logo" className="h-8 md:h-10 w-auto" />
-             </a>
-          </div>
+      {/* 1. Cabeçalho (Navbar) */}
+      <header className={`navbar fixed top-0 left-0 right-0 w-full z-[1000] border-b border-graphite transition-all duration-300 bg-white/95 backdrop-blur-md`}>
+        <InfoBanner />
+        <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
           
-          <nav className="hidden md:flex items-center gap-8 text-[12px] font-bold uppercase tracking-[0.2em] text-ghost/70">
+          <a href="#" className="focus:outline-none">
+            <DynamicLogo />
+          </a>
+          
+          <nav className="hidden md:flex items-center gap-8 text-[11px] font-manrope font-extrabold uppercase tracking-wider text-dark/70">
+            <a href="#about" className="hover:text-primary transition-colors">Porquê Nós</a>
+            <a href="#testimonials" className="hover:text-primary transition-colors">Testemunhos</a>
             <a href="#services" className="hover:text-primary transition-colors">Serviços</a>
             <a href="#simulator" className="hover:text-primary transition-colors">Simulador</a>
-            <a href="#testimonials" className="hover:text-primary transition-colors">Testemunhos</a>
-            <a href="#team" className="hover:text-primary transition-colors">Equipa</a>
-            <a href="#projects" className="hover:text-primary transition-colors">Portfólio</a>
-            <a href="#faq" className="hover:text-primary transition-colors">FAQs</a>
-            <div className="flex items-center gap-4 ml-4">
-              <a href="tel:+351289812915" className="px-6 py-3 bg-white border border-primary/20 text-primary rounded-full hover:bg-primary/5 transition-all text-[11px] font-extrabold uppercase tracking-widest hidden lg:block">
-                Pedir Orçamento Grátis
-              </a>
-              <a href="#contact" className="px-7 py-3 bg-primary text-white rounded-full hover:shadow-xl hover:shadow-primary/20 transition-all flex items-center gap-2">
-                <Phone size={14} className="animate-pulse" /> 289 812 915
-              </a>
-            </div>
+            <a href="#faq" className="hover:text-primary transition-colors">Perguntas Comuns</a>
+            <a href="#contact" className="hover:text-primary transition-colors">Orçamento</a>
           </nav>
 
-          <button 
-            className="md:hidden text-ghost z-[2000] p-2 flex items-center justify-center transition-all bg-ghost/5 rounded-xl hover:bg-ghost/10 active:scale-90" 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
-          >
-            {isMenuOpen ? (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="4" y1="8" x2="20" y2="8"></line>
-                <line x1="4" y1="16" x2="20" y2="16"></line>
-              </svg>
-            )}
-          </button>
+          <div className="flex items-center gap-4">
+            <a 
+              href={`tel:${CONFIG.phoneLink}`} 
+              className="p-3 md:px-5 md:py-2.5 bg-primary text-white rounded-full hover:bg-primary/95 transition-all text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm"
+              aria-label={`Ligar para ${CONFIG.companyName}`}
+            >
+              <Phone size={14} className="animate-pulse" />
+              <span className="hidden sm:inline">{CONFIG.phone}</span>
+            </a>
+            
+            <button 
+              className="md:hidden text-dark p-2 bg-dark/5 rounded-lg hover:bg-dark/10 active:scale-95" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            >
+              {isMenuOpen ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="4" y1="8" x2="20" y2="8"></line>
+                  <line x1="4" y1="16" x2="20" y2="16"></line>
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Mobile Menu Overlay — Sempre acessível e cobrindo todo o viewport */}
-      <div className={`md:hidden fixed inset-0 bg-white z-[2500] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}>
-        <div className="flex-1 overflow-y-auto pt-32 pb-20 px-6 flex flex-col items-center">
-          
-          {/* Botão de Fechar Exclusivo do Overlay */}
-          <button 
-            className="absolute top-6 right-6 p-4 bg-ghost/5 rounded-full text-ghost active:scale-90 transition-all"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-
-          <nav className="flex flex-col items-center gap-6 w-full max-w-sm mx-auto">
-            
-            {/* Secção Principal: Serviços */}
-            <div className="w-full bg-ghost/5 p-6 rounded-[2.5rem] border border-ghost/5 shadow-sm">
-              <div className="flex items-center justify-center gap-3 text-primary mb-6">
-                <Wrench size={24} strokeWidth={2.5} />
-                <span className="text-xl font-manrope font-extrabold uppercase tracking-tight">Serviços</span>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Frio Industrial</a>
-                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Aquecimento</a>
-                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Ventilação</a>
-                 <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-[10px] font-extrabold py-5 bg-white border border-ghost/5 rounded-2xl text-center uppercase tracking-tighter hover:border-primary/30 transition-all shadow-sm">Ar Condicionado</a>
-              </div>
-            </div>
-
-            {/* Grid de Links Secundários */}
-            <div className="w-full grid grid-cols-2 gap-3 mt-2">
-              <a href="#simulator" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
-                <Activity size={26} className="text-primary" />
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Simulador</span>
-              </a>
-              <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
-                <Star size={26} className="text-primary" />
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Testemunhos</span>
-              </a>
-              <a href="#team" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
-                <Users size={26} className="text-primary" />
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Equipa</span>
-              </a>
-              <a href="#projects" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-3 py-7 bg-ghost/5 rounded-[2.5rem] border border-ghost/5 hover:bg-white hover:shadow-xl transition-all">
-                <Building2 size={26} className="text-primary" />
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/60">Portfólio</span>
-              </a>
-            </div>
-
-            {/* Botões de Ação Final */}
-            <div className="w-full flex flex-col gap-3 mt-2">
-              <a href="#faq" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-3 py-5 bg-ghost/5 rounded-full border border-ghost/5 text-[10px] font-extrabold uppercase tracking-[0.2em] text-ghost/60">
-                 <MessageCircle size={20} /> Questões Frequentes (FAQs)
-              </a>
-              <a href="#contact" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-4 py-6 bg-primary text-white rounded-full text-[12px] font-extrabold uppercase tracking-widest shadow-2xl shadow-primary/30 active:scale-95 transition-all">
-                <Phone size={22} className="animate-pulse" /> Contacto Direto
-              </a>
-            </div>
-
-            {/* Footer do Menu */}
-            <div className="mt-12 flex flex-col items-center gap-4 opacity-30 pb-10">
-              <div className="flex items-center gap-2 text-[9px] font-extrabold uppercase tracking-[0.4em]">
-                <ShieldCheck size={16} /> Engenharia Industrial desde 1993
-              </div>
-            </div>
+      {/* Menu Mobile Overlay */}
+      <div className={`md:hidden fixed inset-0 bg-white z-[999] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}>
+        <div className="flex-1 pt-28 pb-10 px-6 flex flex-col items-center justify-between">
+          <nav className="flex flex-col items-center gap-8 w-full">
+            <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Porquê Nós</a>
+            <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Testemunhos</a>
+            <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Serviços</a>
+            <a href="#simulator" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Simulador</a>
+            <a href="#faq" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Perguntas Comuns</a>
+            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Pedir Orçamento</a>
           </nav>
+          
+          <div className="w-full max-w-xs flex flex-col gap-4 items-center">
+            <a 
+              href={`tel:${CONFIG.phoneLink}`} 
+              className="w-full py-4 bg-primary text-white rounded-full text-center text-sm font-extrabold flex items-center justify-center gap-2 shadow-lg"
+            >
+              <Phone size={18} /> {CONFIG.phone}
+            </a>
+            <span className="text-[10px] uppercase font-mono tracking-widest text-dark/30 flex items-center gap-1.5">
+              <Award size={12} /> Instalações Legais em Todo o {CONFIG.region}
+            </span>
+          </div>
         </div>
       </div>
 
-      <main>
-        {/* Hero Section — Estética Angular Elite */}
-        <section ref={heroRef} className="relative min-h-[90svh] flex flex-col items-center text-center md:items-start md:text-left justify-center px-6 md:px-20 overflow-hidden bg-white">
-          <div className="absolute inset-0 z-0 overflow-hidden">
+      <main className="pt-28">
+        
+        {/* 2. Hero Section (Apresentação Direta) */}
+        <section className="relative min-h-[85vh] flex flex-col justify-center px-6 py-12 md:py-24 bg-white overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            {/* Imagem de fundo moderna e abstrata focada em ar condicionado */}
             <img 
-              src="/hero_light.png" 
-              alt="Engenharia FRIAVAC Algarve - Climatização Industrial" 
-              className="w-full h-full object-cover object-left scale-110"
+              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1600&auto=format&fit=crop" 
+              srcSet="
+                https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=640&auto=format&fit=crop 640w,
+                https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1024&auto=format&fit=crop 1024w,
+                https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=1600&auto=format&fit=crop 1600w
+              "
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1600px"
+              alt="Instalação de Ar Condicionado" 
+              className="w-full h-full object-cover object-center opacity-10"
               loading="eager"
+              fetchPriority="high"
             />
-            {/* Overlay Reforçado para Legibilidade Máxima */}
-            <div 
-              className="absolute inset-0 bg-white/85 md:bg-white/60 backdrop-blur-[4px] md:backdrop-blur-[2px] z-[2]"
-              style={{ clipPath: window.innerWidth > 768 ? 'polygon(0 0, 50% 0, 35% 100%, 0 100%)' : 'none' }}
-            />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
           </div>
 
-          <div className="relative z-10 max-w-2xl flex flex-col items-center md:items-start">
-            <div className="hero-line-1 flex items-center gap-4 mb-10">
-              <div className="px-5 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] font-extrabold uppercase tracking-[0.3em]">
-                Autoridade em Climatização • Faro
-              </div>
+          <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] md:text-xs font-manrope font-extrabold uppercase tracking-widest mb-6">
+              <Award size={14} /> Especialistas Técnicos em Climatização
             </div>
-            <h1 className="hero-line-1 text-4xl md:text-7xl font-manrope font-extrabold leading-[0.9] mb-8 tracking-tighter text-black">
-              CONFORTO<br /><span className="text-primary italic">TECNOLÓGICO</span><br />INDUSTRIAL.
-            </h1>
-            <p className="hero-line-2 text-lg font-bold text-black/90 mb-12 max-w-lg leading-relaxed">
-              Especialistas em Assistência, Instalação e Manutenção de Equipamentos Industriais e Residenciais em todo o Algarve.
-            </p>
-            <div className="hero-cta flex flex-wrap justify-center md:justify-start gap-5">
-              <a href="tel:+351289812915" className="px-10 py-5 bg-primary text-white text-[12px] font-extrabold uppercase tracking-widest rounded-full shadow-2xl shadow-primary/20 hover:scale-105 transition-transform flex items-center gap-3">
-                <Phone size={18} /> Contacto Direto
-              </a>
-              <a href="#contact" className="px-10 py-5 bg-white text-ghost text-[14px] font-extrabold uppercase tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shadow-xl">
-                 Iniciar Discovery Quiz
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Brands Marquee — Autoridade de Marca (Cores Originais) */}
-        <div className="py-16 bg-white overflow-hidden border-b border-ghost/5">
-          <div className="marquee-track flex whitespace-nowrap items-center">
-            {[
-              { name: "DAIKIN", color: "#00A1E4" },
-              { name: "MITSUBISHI ELECTRIC", color: "#E60012" },
-              { name: "LG", color: "#A50034" },
-              { name: "PANASONIC", color: "#004098" },
-              { name: "FUJITSU", color: "#ED1C24" },
-              { name: "SAMSUNG", color: "#074C9D" },
-              { name: "CARRIER", color: "#00447C" }
-            ].map((brand, i) => (
-              <div key={i} className="flex items-center mx-16 md:mx-24 group">
-                <span 
-                  className="text-3xl md:text-5xl font-manrope font-extrabold tracking-tighter transition-all duration-500 group-hover:scale-110"
-                  style={{ color: brand.color, filter: 'drop-shadow(0 0 20px ' + brand.color + '20)' }}
-                >
-                  {brand.name}
-                </span>
-              </div>
-            ))}
-            {/* Duplicar para loop contínuo */}
-            {[
-              { name: "DAIKIN", color: "#00A1E4" },
-              { name: "MITSUBISHI ELECTRIC", color: "#E60012" },
-              { name: "LG", color: "#A50034" },
-              { name: "PANASONIC", color: "#004098" },
-              { name: "FUJITSU", color: "#ED1C24" },
-              { name: "SAMSUNG", color: "#074C9D" },
-              { name: "CARRIER", color: "#00447C" }
-            ].map((brand, i) => (
-              <div key={i + 10} className="flex items-center mx-16 md:mx-24 group">
-                <span 
-                  className="text-3xl md:text-5xl font-manrope font-extrabold tracking-tighter transition-all duration-500 group-hover:scale-110"
-                  style={{ color: brand.color, filter: 'drop-shadow(0 0 20px ' + brand.color + '20)' }}
-                >
-                  {brand.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <EliteStatsSection />
-
-        {/* Services Grid — Visual Fidelity (Referência Imagem) */}
-        <section id="services" ref={servicesRef} className="py-24 px-6 md:px-20 bg-graphite/30">
-          <div className="max-w-7xl mx-auto mb-16">
-             <span className="text-primary font-manrope font-extrabold text-[10px] uppercase tracking-[0.5em] mb-4 block">Especialidades Técnicas</span>
-             <h2 className="text-4xl md:text-5xl font-manrope font-extrabold tracking-tighter">Domínio Total em<br /><span className="text-primary italic">Sistemas Térmicos.</span></h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-ghost/5 border border-ghost/5 rounded-[3rem] overflow-hidden">
             
-             {/* Frio Industrial */}
-            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Frio Industrial">
-              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instalação de Frio Industrial em Faro" loading="lazy" />
-              <div className="absolute inset-0 bg-white/90 md:bg-white/80 transition-opacity group-hover:opacity-60 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(0 0, 60% 0, 40% 100%, 0 100%)' : 'polygon(0 0, 85% 0, 65% 100%, 0 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center p-6 md:p-12 max-w-[70%] md:max-w-[50%] z-10">
-                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-black leading-tight">FRIO INDUSTRIAL</h3>
-                <p className="text-[10px] md:text-xs text-black font-semibold mb-6 md:mb-8 opacity-80">Soluções robustas para unidades de produção e frio alimentar.</p>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-primary flex items-center gap-2">Consultar Expertise <ChevronRight size={14} /></span>
-              </div>
-            </a>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-manrope font-extrabold text-dark leading-tight tracking-tight mb-6">
+              O Teu Clima Ideal.<br />
+              <span className="text-primary italic">Conforto Sem Preocupações.</span>
+            </h1>
+            
+            <p className="text-sm md:text-lg text-dark/80 max-w-2xl leading-relaxed mb-10 font-medium">
+              Instalamos, reparamos e fazemos a manutenção de ar condicionado em {CONFIG.city} e em todo o {CONFIG.region}. Garante equipamentos de alta eficiência e uma climatização perfeita com o suporte de profissionais devidamente certificados por lei.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <a 
+                href={`tel:${CONFIG.phoneLink}`} 
+                className="px-8 py-3.5 bg-primary text-white text-xs md:text-sm font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-lg hover:bg-primary/95 transition-all flex items-center justify-center gap-2.5 active:scale-[0.98]"
+              >
+                <Phone size={16} /> Ligar Para Orçamento
+              </a>
+              <a 
+                href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3.5 bg-[#25D366] text-white text-xs md:text-sm font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-lg hover:scale-102 transition-all flex items-center justify-center gap-2.5 active:scale-[0.98]"
+              >
+                <MessageSquare size={16} /> WhatsApp Direto
+              </a>
+            </div>
+          </div>
+        </section>
 
-            {/* Aquecimento */}
-            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Sistemas de Aquecimento">
-              <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2670&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Sistemas de Aquecimento e Caldeiras no Algarve" loading="lazy" />
-              <div className="absolute inset-0 bg-red-600/80 transition-opacity group-hover:opacity-50 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(20% 0, 100% 0, 100% 100%, 40% 100%)' : 'polygon(10% 0, 100% 0, 100% 100%, 30% 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center items-end p-6 md:p-12 text-right z-10">
-                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-white leading-tight">AQUECIMENTO</h3>
-                <p className="text-[10px] md:text-xs text-white font-semibold mb-6 md:mb-8 max-w-[200px] md:max-w-[250px] opacity-90">Equipamentos de queima e sistemas térmicos residenciais.</p>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 justify-end font-extrabold">Explorar Sistemas <ChevronRight size={14} /></span>
+        {/* 3. Faixa de Garantias Rápidas (Trust Bar) */}
+        <section className="bg-primary py-8 text-white px-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            
+            <div className="flex flex-col items-center md:flex-row md:text-left gap-4 justify-center">
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                <Award size={24} className="text-white" />
               </div>
-            </a>
+              <div>
+                <h4 className="font-manrope font-extrabold text-sm uppercase tracking-wide">Técnicos Certificados</h4>
+                <p className="text-xs text-white/80">Instalação 100% legal (Registo de F-Gases obrigatório).</p>
+              </div>
+            </div>
 
-            {/* Ventilação */}
-            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Ventilação Industrial">
-              <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2669&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Sistemas de Ventilação e Extração para Cozinhas" loading="lazy" />
-              <div className="absolute inset-0 bg-ghost/90 md:bg-ghost/80 transition-opacity group-hover:opacity-60 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(0 0, 50% 0, 30% 100%, 0 100%)' : 'polygon(0 0, 80% 0, 60% 100%, 0 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center p-6 md:p-12 max-w-[75%] md:max-w-[50%] z-10">
-                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-white leading-tight">VENTILAÇÃO</h3>
-                <p className="text-[10px] md:text-xs text-white font-semibold mb-6 md:mb-8 opacity-90">Extração e renovação de ar para cozinhas e espaços comerciais.</p>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2">Ver Projetos <ChevronRight size={14} /></span>
+            <div className="flex flex-col items-center md:flex-row md:text-left gap-4 justify-center border-t border-b md:border-t-0 md:border-b-0 border-white/15 py-6 md:py-0">
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                <ShieldCheck size={24} className="text-white" />
               </div>
-            </a>
+              <div>
+                <h4 className="font-manrope font-extrabold text-sm uppercase tracking-wide">Garantia Ativa do Fabricante</h4>
+                <p className="text-xs text-white/80">Trabalhamos apenas com marcas líderes e suporte oficial.</p>
+              </div>
+            </div>
 
-            {/* Ar Condicionado */}
-            <a href="#contact" className="group relative h-[350px] md:h-[400px] bg-white overflow-hidden cursor-pointer" aria-label="Saber mais sobre Ar Condicionado e Climatização">
-              <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=2574&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instalação de Ar Condicionado em Vilamoura e Faro" loading="lazy" />
-              <div className="absolute inset-0 bg-primary/95 transition-opacity group-hover:opacity-85 z-0" style={{ clipPath: window.innerWidth > 768 ? 'polygon(30% 0, 100% 0, 100% 100%, 50% 100%)' : 'polygon(15% 0, 100% 0, 100% 100%, 35% 100%)' }} />
-              <div className="absolute inset-0 flex flex-col justify-center items-end p-6 md:p-12 text-right z-10">
-                <h3 className="text-xl md:text-3xl font-manrope font-extrabold mb-3 md:mb-4 text-white leading-[1.1]">AR<br />CONDICIONADO</h3>
-                <p className="text-[10px] md:text-xs text-white font-semibold mb-6 md:mb-8 max-w-[200px] md:max-w-[250px] opacity-90">Otimização climática de alto rendimento no Algarve.</p>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 justify-end font-extrabold">Orçamento Qualificado <ChevronRight size={14} /></span>
+            <div className="flex flex-col items-center md:flex-row md:text-left gap-4 justify-center">
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                <Mail size={24} className="text-white" />
               </div>
-            </a>
+              <div>
+                <h4 className="font-manrope font-extrabold text-sm uppercase tracking-wide">Orçamentos Claros</h4>
+                <p className="text-xs text-white/80">Preço fechado e transparente, sem qualquer surpresa.</p>
+              </div>
+            </div>
 
           </div>
         </section>
 
-        {/* Simulator Section */}
-        <section id="simulator" className="py-20 px-6 md:px-20 bg-white">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-            <div className="flex-1">
-               <div className="text-accent font-mono text-[9px] mb-6 uppercase tracking-[0.6em]">Ferramenta Útil</div>
-               <h2 className="text-3xl md:text-5xl font-bold mb-8 tracking-tight">Simule o AC Ideal</h2>
-               <p className="text-base text-ghost/50 leading-relaxed mb-8">
-                 Otimize o seu consumo. Use o nosso simulador para perceber a potência real que o seu espaço exige no clima do Algarve.
+        {/* 4. Posicionamento Estratégico (Porquê Nós / Para Quem É & Não É) */}
+        <section id="about" className="py-20 px-6 bg-light">
+          <div className="max-w-7xl mx-auto">
+            
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Transparência Total</span>
+              <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">
+                Como Trabalhamos e para Quem?
+              </h2>
+              <p className="text-sm md:text-base text-dark/50 mt-4 leading-relaxed font-medium">
+                Não tentamos agradar a todos. Focamos no rigor, na lei e na satisfação real a longo prazo.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              
+              {/* Para Quem É */}
+              <div className="p-8 md:p-12 bg-white border border-graphite rounded-[2rem] shadow-sm hover:shadow-md transition-all">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center">
+                    <CheckCircle2 size={24} />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark">Para Quem É Connosco:</h3>
+                </div>
+                
+                <ul className="space-y-6">
+                  <li className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Quer Poupar na Fatura da Luz</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Recomendamos apenas equipamentos de altíssima eficiência energética (A++ ou superior), reduzindo drasticamente o consumo elétrico.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Exige Garantia Real e Instalação Legal</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Somos certificados por lei para manuseamento de gases fluorados. A instalação cumpre a regra, ativando automaticamente a garantia das marcas.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Valoriza a Limpeza e Acabamento da Casa</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Garantia absoluta de entulho zero. Deixamos a casa limpa, sem pó acumulado e com todas as tubagens e furos devidamente isolados.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Para Quem NÃO É */}
+              <div className="p-8 md:p-12 bg-white border border-graphite rounded-[2rem] shadow-sm hover:shadow-md transition-all">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-red-500/10 text-red-600 flex items-center justify-center">
+                    <XCircle size={24} />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark">Para Quem NÃO É:</h3>
+                </div>
+                
+                <ul className="space-y-6">
+                  <li className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Procura "Biscateiros" sem Certificação</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Não fazemos serviços clandestinos. Uma instalação ilegal anula a garantia oficial da máquina, arruina o equipamento e infringe a legislação ambiental.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Quer Máquinas de Baixa Qualidade</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Recusamos trabalhar com marcas de linha branca descartáveis onde não existem peças de reparação oficial nem suporte técnico pós-venda em Portugal.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Foca-se Apenas no Preço Mais Barato</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Instalar ar condicionado requer materiais resistentes (tubos de cobre de espessura adequada, isolamento reforçado e apoios anti-vibração). Não cortamos na qualidade.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* CTA Pós-Posicionamento */}
+            <div className="mt-12 text-center bg-white p-8 rounded-3xl border border-graphite max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-left">
+                <h4 className="font-manrope font-extrabold text-base md:text-lg text-dark">Identificou-se com o nosso rigor?</h4>
+                <p className="text-xs text-dark/60 mt-1">Garanta um serviço 100% profissional, limpo e em conformidade legal.</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <a 
+                  href={`tel:${CONFIG.phoneLink}`} 
+                  className="px-6 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2"
+                >
+                  <Phone size={14} /> Ligar Já
+                </a>
+                <a 
+                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Identifiquei-me com os vossos valores de trabalho e gostaria de solicitar um orçamento para ar condicionado.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 bg-[#25D366] text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:scale-102 transition-all text-center flex items-center justify-center gap-2"
+                >
+                  <MessageSquare size={14} /> WhatsApp
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* Secção de Prova Social (Testemunhos & Marcas) */}
+        <section id="testimonials" className="py-20 px-6 bg-white border-t border-graphite">
+          <div className="max-w-7xl mx-auto">
+            
+            {/* Logos de Marcas Recomendadas */}
+            <div className="text-center mb-16 border-b border-graphite pb-12 max-w-5xl mx-auto">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-dark/40 block mb-6">Equipamentos e Marcas Líderes Que Instalamos</span>
+              <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-45 grayscale hover:opacity-75 hover:grayscale-0 transition-all duration-300">
+                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> DAIKIN
+                </div>
+                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> MITSUBISHI ELECTRIC
+                </div>
+                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> LG ELECTRONICS
+                </div>
+                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> SAMSUNG
+                </div>
+                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> MIDEA
+                </div>
+              </div>
+            </div>
+
+            {/* Cabeçalho de Testemunhos */}
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Opinião Real</span>
+              <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">
+                Quem Já Confia no Nosso Rigor
+              </h2>
+              <p className="text-sm md:text-base text-dark/50 mt-4 leading-relaxed font-medium">
+                Veja o testemunho de quem escolheu uma instalação certificada, limpa e económica para a sua habitação.
+              </p>
+            </div>
+
+            {/* Grelha de Testemunhos */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              
+              {/* Testemunho 1 */}
+              <div className="p-6 sm:p-8 bg-light border border-graphite rounded-3xl flex flex-col justify-between hover:shadow-lg transition-all">
+                <div>
+                  <div className="flex gap-1 text-amber-500 mb-6">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+                  </div>
+                  <p className="text-xs md:text-sm text-dark/70 italic leading-relaxed mb-6 font-medium">
+                    "Instalação impecável no nosso apartamento em Quarteira. O técnico foi extremamente rápido e o rigor de limpeza foi absoluto: nem um grão de pó após a perfuração da parede. Recomendo imenso!"
+                  </p>
+                </div>
+                <div className="border-t border-graphite pt-4 flex items-center justify-between">
+                  <div>
+                    <strong className="text-sm text-dark block font-bold">Rui Mendes</strong>
+                    <span className="text-[10px] text-dark/40 font-mono uppercase tracking-wider">Faro</span>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">RM</div>
+                </div>
+              </div>
+
+              {/* Testemunho 2 */}
+              <div className="p-6 sm:p-8 bg-light border border-graphite rounded-3xl flex flex-col justify-between hover:shadow-lg transition-all">
+                <div>
+                  <div className="flex gap-1 text-amber-500 mb-6">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+                  </div>
+                  <p className="text-xs md:text-sm text-dark/70 italic leading-relaxed mb-6 font-medium">
+                    "Fiquei muito satisfeita. Ajudaram-nos a dimensionar o equipamento certo usando o simulador do site e propuseram uma máquina A+++. Notámos uma redução significativa na fatura mensal da luz."
+                  </p>
+                </div>
+                <div className="border-t border-graphite pt-4 flex items-center justify-between">
+                  <div>
+                    <strong className="text-sm text-dark block font-bold">Maria Silva</strong>
+                    <span className="text-[10px] text-dark/40 font-mono uppercase tracking-wider">Loulé</span>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">MS</div>
+                </div>
+              </div>
+
+              {/* Testemunho 3 */}
+              <div className="p-6 sm:p-8 bg-light border border-graphite rounded-3xl flex flex-col justify-between hover:shadow-lg transition-all">
+                <div>
+                  <div className="flex gap-1 text-amber-500 mb-6">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+                  </div>
+                  <p className="text-xs md:text-sm text-dark/70 italic leading-relaxed mb-6 font-medium">
+                    "Trabalho de técnicos sérios e credenciados. Forneceram-me toda a documentação legal de registo da máquina e gases exigida pela APA, o que ativou logo a garantia de 3 anos do fabricante."
+                  </p>
+                </div>
+                <div className="border-t border-graphite pt-4 flex items-center justify-between">
+                  <div>
+                    <strong className="text-sm text-dark block font-bold">Carlos Santos</strong>
+                    <span className="text-[10px] text-dark/40 font-mono uppercase tracking-wider">Portimão</span>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs uppercase">CS</div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Novo CTA de Conversão na Secção de Testemunhos */}
+            <div className="mt-12 text-center bg-light p-6 rounded-2xl border border-graphite max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs md:text-sm font-bold text-dark text-left">Pretende o mesmo nível de rigor para a sua moradia?</span>
+              <a 
+                href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Vi os testemunhos positivos dos vossos clientes e gostaria de solicitar um orçamento para ar condicionado.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 w-full sm:w-auto"
+              >
+                <MessageSquare size={14} /> Solicitar Orçamento
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        {/* 5. Serviços Principais (Os 3 Pilares Técnicos) */}
+        <section id="services" className="py-20 px-6 bg-white border-t border-b border-graphite">
+          <div className="max-w-7xl mx-auto">
+            
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">O Que Fazemos</span>
+              <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">
+                Serviços de Climatização Especializados
+              </h2>
+              <p className="text-sm md:text-base text-dark/50 mt-4 leading-relaxed font-medium">
+                Soluções focadas no rigor técnico e na máxima eficiência dos teus sistemas de climatização.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              
+              {/* Instalação */}
+              <div className="group p-6 sm:p-8 bg-light border border-graphite rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6">
+                    <Wind size={24} />
+                  </div>
+                  <h3 className="text-lg font-manrope font-extrabold text-dark mb-4 uppercase">Instalação de AC</h3>
+                  <p className="text-xs md:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
+                    Instalação e dimensionamento profissional de sistemas de ar condicionado (Mural, Consola, Conduta e Multi-Split) adaptados exatamente ao teu espaço residencial ou comercial.
+                  </p>
+                </div>
+                <a 
+                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Gostaria de obter mais informações e orçamento para Instalação de Ar Condicionado.`}
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="mt-6 w-full py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+                >
+                  Solicitar Orçamento <ChevronRight size={14} />
+                </a>
+              </div>
+
+              {/* Manutenção e Limpeza */}
+              <div className="group p-6 sm:p-8 bg-light border border-graphite rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6">
+                    <Wrench size={24} />
+                  </div>
+                  <h3 className="text-lg font-manrope font-extrabold text-dark mb-4 uppercase">Manutenção & Limpeza</h3>
+                  <p className="text-xs md:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
+                    Higienização profunda de filtros, desinfeção contra bactérias e fungos, verificação de drenagens e controlo de pressões de gás para garantir ar saudável e consumos de luz baixos.
+                  </p>
+                </div>
+                <a 
+                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Gostaria de agendar ou obter orçamento para Manutenção e Limpeza do meu Ar Condicionado.`}
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="mt-6 w-full py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+                >
+                  Agendar Limpeza <ChevronRight size={14} />
+                </a>
+              </div>
+
+              {/* Assistência e Reparação */}
+              <div className="group p-6 sm:p-8 bg-light border border-graphite rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col justify-between">
+                <div>
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6">
+                    <Activity size={24} />
+                  </div>
+                  <h3 className="text-lg font-manrope font-extrabold text-dark mb-4 uppercase">Assistência & Reparação</h3>
+                  <p className="text-xs md:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
+                    Deteção de fugas de refrigerante, avarias elétricas ou de compressores, e reparação técnica em todas as marcas líderes com peças originais e diagnóstico rápido.
+                  </p>
+                </div>
+                <a 
+                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Preciso de assistência técnica ou reparação urgente para o meu equipamento de Ar Condicionado.`}
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="mt-6 w-full py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+                >
+                  Pedir Assistência <ChevronRight size={14} />
+                </a>
+              </div>
+
+            </div>
+
+            {/* CTA Pós-Serviços */}
+            <div className="mt-16 text-center max-w-2xl mx-auto border-t border-graphite pt-12">
+              <p className="text-sm font-bold text-dark mb-4">Já sabe de que serviço precisa para o seu espaço?</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a 
+                  href={`tel:${CONFIG.phoneLink}`} 
+                  className="px-8 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all flex items-center justify-center gap-2"
+                >
+                  <Phone size={14} /> Falar Connosco por Telefone
+                </a>
+                <a 
+                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Analisei os vossos serviços de climatização e gostaria de solicitar um orçamento específico.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 bg-[#25D366] text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:scale-102 transition-all flex items-center justify-center gap-2"
+                >
+                  <MessageSquare size={14} /> Solicitar via WhatsApp
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* 6. Secção do Simulador de AC */}
+        <section id="simulator" className="py-20 px-6 bg-light">
+          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+            
+            <div className="flex-1 max-w-xl">
+               <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Interativo</span>
+               <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight mb-6">
+                 Calcula a Potência Ideal para a Tua Divisão
+               </h2>
+               <p className="text-sm md:text-base text-dark/60 leading-relaxed mb-8 font-medium">
+                 Evita consumos exagerados de eletricidade ou ter uma máquina incapaz de arrefecer o espaço. Utiliza o nosso simulador térmico simplificado para perceberes a potência aproximada que necessitas.
                </p>
+               
                <ul className="space-y-4">
-                 {["Análise de Radiação Solar", "Área m² Dinâmica", "Sem Compromisso"].map(item => (
-                   <li key={item} className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-ghost/60">
-                     <CheckCircle2 className="text-accent" size={16} /> {item}
+                 {["Cálculo calibrado para o clima português", "Fator de radiação solar direta incluído", "Prevenção de sobrecargas energéticas"].map((item, idx) => (
+                   <li key={idx} className="flex items-center gap-3 text-xs md:text-sm font-bold uppercase tracking-wider text-dark/70">
+                     <CheckCircle2 className="text-primary flex-shrink-0" size={18} /> {item}
                    </li>
                  ))}
                </ul>
+
+               <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                 <a 
+                   href={`tel:${CONFIG.phoneLink}`} 
+                   className="px-6 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2"
+                 >
+                   <Phone size={14} /> Ligar Direto
+                 </a>
+                 <a 
+                   href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Gostaria de falar com um técnico para me ajudar a dimensionar o meu ar condicionado.")}`}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="px-6 py-3 bg-dark text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-dark/90 transition-all text-center flex items-center justify-center gap-2"
+                 >
+                   <MessageSquare size={14} /> WhatsApp Técnico
+                 </a>
+               </div>
             </div>
-            <div className="flex-1 w-full max-w-lg">
+
+            <div className="flex-1 w-full max-w-md">
                <BTUSimulator />
             </div>
-          </div>
-        </section>
 
-        {/* Testimonials Section Elite — Prova Social de Autoridade */}
-        <section id="testimonials" className="py-24 px-6 md:px-20 bg-ghost">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center md:items-end justify-between mb-20 gap-8">
-               <div className="text-center md:text-left">
-                 <span className="text-primary font-manrope font-extrabold text-[10px] uppercase tracking-[0.5em] mb-4 block">Confiança Regional</span>
-                 <h2 className="text-4xl md:text-5xl font-manrope font-extrabold text-white tracking-tighter leading-none">Rigor Técnico sob<br /><span className="text-primary italic">Avaliação Google.</span></h2>
-               </div>
-               <div className="flex flex-col items-center md:items-end gap-2">
-                 <div className="flex items-center gap-1">
-                   {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-primary text-primary" />)}
-                 </div>
-                 <span className="text-[10px] font-extrabold text-white/40 uppercase tracking-widest">4.8/5 • 120+ Avaliações Reais</span>
-               </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {/* Hill Fore */}
-              <div className="group p-12 bg-white rounded-[4rem] border border-white/5 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
-                <p className="text-ghost text-lg font-medium italic mb-10 leading-relaxed opacity-80">
-                  "Instalação com cuidado e ótimos acabamentos no trabalho de perfuração da parede e aplicação de calhas. Exterior e interior. Competência e profissionalismo. Recomendo."
-                </p>
-                <div className="flex items-center gap-5">
-                   <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center font-manrope font-extrabold text-primary text-xl">HF</div>
-                   <div>
-                     <div className="font-manrope font-extrabold text-ghost text-lg">Hill Fore</div>
-                     <div className="text-[10px] text-primary uppercase font-extrabold tracking-[0.2em]">Faro, Algarve</div>
-                   </div>
-                </div>
-              </div>
-              {/* Carlos Guerreiro */}
-              <div className="group p-12 bg-[#FAF8F5] rounded-[4rem] border border-ghost/5 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
-                <p className="text-ghost text-lg font-medium italic mb-10 leading-relaxed opacity-80">
-                  "Serviço de mestre. A equipa da Friavac resolveu um problema de climatização industrial que outros não conseguiram. Rigor e confiança total no Algarve."
-                </p>
-                <div className="flex items-center gap-5">
-                   <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center font-manrope font-extrabold text-white text-xl">CG</div>
-                   <div>
-                     <div className="font-manrope font-extrabold text-ghost text-lg">Carlos Guerreiro</div>
-                     <div className="text-[10px] text-primary uppercase font-extrabold tracking-[0.2em]">Gestor Industrial • Loulé</div>
-                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Team Elite Section */}
-        {/* Team Elite Section */}
-        <section id="team" ref={teamRef} className="py-24 px-6 md:px-20 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 items-center">
-            <div className="lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left">
-                <span className="text-primary font-manrope font-extrabold text-[12px] uppercase tracking-[0.5em] mb-4 block">Corpo Técnico</span>
-                <h2 className="text-4xl md:text-5xl font-manrope font-extrabold text-ghost tracking-tighter leading-none mb-8 uppercase">ENGENHARIA<br />DE PRECISÃO.</h2>
-                <p className="text-ghost/60 text-base font-medium leading-relaxed mb-10 max-w-md">
-                  Operamos com técnicos certificados pela ADENE e APA, garantindo que o seu sistema cumpre as mais rigorosas normas europeias de eficiência energética.
-                </p>
-                <div className="flex flex-col gap-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center text-primary"><Award size={24} /></div>
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/40">Certificação Gases Fluorados</span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center text-primary"><ShieldCheck size={24} /></div>
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-ghost/40">Parceiro Oficial Daikin • Algarve</span>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-                 <div className="relative group rounded-[3rem] overflow-hidden aspect-square">
-                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Engenharia" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-ghost/80 to-transparent opacity-80" />
-                    <div className="absolute bottom-10 left-10 text-white">
-                       <div className="text-[10px] font-extrabold uppercase tracking-widest opacity-60 mb-2">Engenharia Técnica</div>
-                       <h4 className="text-2xl font-manrope font-extrabold">Projeto e Dimensionamento</h4>
-                    </div>
-                 </div>
-                 <div className="relative group rounded-[3rem] overflow-hidden aspect-square">
-                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2669&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instalação" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent opacity-80" />
-                    <div className="absolute bottom-10 left-10 text-white">
-                       <div className="text-[10px] font-extrabold uppercase tracking-widest opacity-60 mb-2">Técnicos Certificados</div>
-                       <h4 className="text-2xl font-manrope font-extrabold">Instalação e Manutenção</h4>
-                    </div>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Projects Gallery */}
-        <section id="projects" ref={projectsRef} className="py-24 px-6 md:px-20 bg-primary">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-16 text-center max-w-3xl mx-auto">
-               <span className="text-accent font-mono text-[12px] uppercase tracking-[0.4em] mb-4 block">Portfólio Industrial</span>
-               <h2 className="text-4xl md:text-6xl font-manrope font-extrabold text-white tracking-tighter mb-4 uppercase">Projetos de Referência</h2>
-               <p className="text-white/80 text-base font-medium">Sistemas instalados com rigor técnico em todo o Algarve.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <a href="tel:+351289812915" className="project-card group relative aspect-[5/6] md:aspect-[6/7] rounded-[2rem] overflow-hidden">
-                 <img src="https://images.unsplash.com/photo-1590487988256-9ed24133863e?q=80&w=2656&auto=format&fit=crop" alt="Instalação de Frio Industrial em Unidade de Produção em Faro" className="w-full h-full object-cover brightness-75 group-hover:scale-110 transition-transform duration-700" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-ghost to-transparent opacity-60" />
-                 <div className="absolute bottom-6 left-6 right-6">
-                   <div className="flex flex-col h-16 justify-center">
-                     <span className="text-white/40 font-mono text-[8px] uppercase tracking-[0.3em] mb-1">Frio Industrial</span>
-                     <h4 className="text-white text-base font-bold leading-tight">Unidade Multi-Split</h4>
-                   </div>
-                   <div className="text-white text-[8px] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest mt-2">Pedir Solução <ChevronRight size={10} /></div>
-                 </div>
-              </a>
-              <a href="tel:+351289812915" className="project-card group relative aspect-[5/6] md:aspect-[6/7] rounded-[2rem] overflow-hidden">
-                 <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2669&auto=format&fit=crop" alt="Projeto de Climatização de Luxo em Moradia Premium em Vilamoura" className="w-full h-full object-cover brightness-75 group-hover:scale-110 transition-transform duration-700" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-ghost to-transparent opacity-60" />
-                 <div className="absolute bottom-6 left-6 right-6">
-                   <div className="flex flex-col h-16 justify-center">
-                     <span className="text-white/40 font-mono text-[8px] uppercase tracking-[0.3em] mb-1">Vilamoura Luxury</span>
-                     <h4 className="text-white text-base font-bold leading-tight">Climatização de Moradia</h4>
-                   </div>
-                   <div className="text-white text-[8px] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest mt-2">Pedir Solução <ChevronRight size={10} /></div>
-                 </div>
-              </a>
-              <a href="tel:+351289812915" className="project-card group relative aspect-[5/6] md:aspect-[6/7] rounded-[2rem] overflow-hidden">
-                 <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2670&auto=format&fit=crop" alt="Manutenção e Limpeza de Calhas e Dutos em Olhão, Algarve" className="w-full h-full object-cover brightness-75 group-hover:scale-110 transition-transform duration-700" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-ghost to-transparent opacity-60" />
-                 <div className="absolute bottom-6 left-6 right-6">
-                   <div className="flex flex-col h-16 justify-center">
-                     <span className="text-white/40 font-mono text-[8px] uppercase tracking-[0.3em] mb-1">Arco de Olhão</span>
-                     <h4 className="text-white text-base font-bold leading-tight">Manutenção Total</h4>
-                   </div>
-                   <div className="text-white text-[8px] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest mt-2">Pedir Solução <ChevronRight size={10} /></div>
-                 </div>
-              </a>
-            </div>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="py-24 px-6 md:px-20 bg-white">
+        <section id="faq" className="py-20 px-6 bg-white border-t border-b border-graphite">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-16 text-center">Perguntas Frequentes</h2>
-            <div className="space-y-4">
+            
+            <div className="text-center mb-16">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Tira as Tuas Dúvidas</span>
+              <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">Perguntas Frequentes</h2>
+            </div>
+
+            <div className="space-y-2">
               <FAQItem 
-                question="Os orçamentos são gratuitos?" 
-                answer="Sim, realizamos visitas técnicas e orçamentos totalmente gratuitos em todo o Algarve, sem qualquer tipo de compromisso." 
+                question="Os orçamentos de instalação são realmente gratuitos?" 
+                answer="Sim, realizamos visitas técnicas e elaboramos orçamentos sem qualquer custo ou compromisso em toda a nossa zona de atuação." 
               />
               <FAQItem 
-                question="Em que zonas do Algarve atuam?" 
-                answer="Sediados em Faro, servimos toda a região, com foco em Loulé, Olhão, Vilamoura, Albufeira e Tavira." 
+                question="Qual é a importância de instalar com um técnico credenciado F-Gases?" 
+                answer="O manuseamento de gases de refrigeração sem licença da APA (Agência Portuguesa do Ambiente) é crime ambiental e anula imediatamente a garantia do fabricante das marcas (Daikin, Mitsubishi, LG, etc.). Nós garantimos uma instalação 100% legal certificada." 
               />
               <FAQItem 
-                question="Fazem manutenção de equipamentos que não foram instalados por vós?" 
-                answer="Sim. A nossa equipa técnica está certificada para intervir e reparar equipamentos de todas as marcas líderes no mercado." 
+                question="Com que frequência devo fazer a manutenção do meu ar condicionado?" 
+                answer="Para uso doméstico normal, recomenda-se uma higienização e verificação técnica completa uma vez por ano (preferencialmente antes do Verão). Em espaços comerciais ou escritórios, a manutenção deve ser semestral ou trimestral." 
               />
               <FAQItem 
-                question="O trabalho de instalação inclui limpeza?" 
-                answer="O nosso selo de qualidade garante um trabalho 'zero detritos'. Deixamos o seu espaço exatamente como o encontrámos, mas agora climatizado." 
+                question="O ar condicionado consome muita eletricidade no aquecimento de Inverno?" 
+                answer="Não, pelo contrário. Os equipamentos modernos de tecnologia Inverter funcionam como bombas de calor extremamente eficientes. Consomem até 4 vezes menos eletricidade do que um termoventilador comum, aquecendo o espaço de forma uniforme." 
               />
             </div>
-          </div>
-        </section>
 
-        {/* Lead Generation Form Area (Discovery Quiz) */}
-        <section id="contact" className="py-20 px-6 md:px-20 bg-primary/30">
-          <div className="max-w-7xl mx-auto">
-             <div className="mb-12 text-center max-w-2xl mx-auto">
-               <span className="text-accent font-mono text-[12px] uppercase tracking-[0.4em] mb-4 block font-extrabold">Fale com um Especialista</span>
-               <h2 className="text-4xl md:text-6xl font-manrope font-extrabold tracking-tighter mb-6 uppercase">Desenhe o seu Projeto</h2>
-               <p className="text-ghost/50 text-base font-semibold">Responda a algumas perguntas e receba uma solução personalizada para o seu espaço.</p>
-             </div>
-             
-             <DiscoveryQuiz />
-          </div>
-        </section>
-
-        {/* Trust Bar (Monochromatic Logos) */}
-        <section className="py-16 px-6 bg-white border-t border-ghost/5">
-           <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-12 md:gap-24 opacity-30 grayscale hover:opacity-60 transition-opacity">
-              <div className="flex flex-col items-center">
-                <ShieldCheck size={32} />
-                <span className="text-[8px] font-bold mt-2">DAIKIN PARTNER</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Wind size={32} />
-                <span className="text-[8px] font-bold mt-2">GASES FLUORADOS</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Zap size={32} />
-                <span className="text-[8px] font-bold mt-2">ADENE ENERGIA</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <Star size={32} />
-                <span className="text-[8px] font-bold mt-2">4.8 GOOGLE STARS</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <ClipboardCheck size={32} />
-                <span className="text-[8px] font-bold mt-2">INSTALAÇÃO CERTIFICADA</span>
-              </div>
-           </div>
-        </section>
-
-        {/* Localização Premium — Proporção 40/60 */}
-        <section id="location" className="map-grid-container border-t border-b border-ghost/5">
-          {/* Informações (40%) */}
-          <div className="map-info-pane">
-            <span className="text-primary font-manrope font-extrabold text-[12px] uppercase tracking-[0.5em] mb-4 block">ONDE ESTAMOS</span>
-            <h2 className="text-4xl font-manrope font-extrabold tracking-tighter mb-6 uppercase">Sede em<br /><span className="text-primary italic">Faro</span></h2>
-            
-            <div className="space-y-6 mb-10">
-              <div className="flex items-start gap-4">
-                <MapPin className="text-primary flex-shrink-0" size={20} />
-                <p className="text-sm text-ghost font-semibold leading-relaxed">
-                  Torre de Natal, 8005-533 Faro.<br />
-                  <span className="text-ghost/40 text-[10px] uppercase tracking-widest font-extrabold">Algarve, Portugal</span>
-                </p>
-              </div>
-              
-              <div className="flex items-start gap-4 text-ghost/60">
-                <Clock className="text-ghost/20 flex-shrink-0" size={20} />
-                <p className="text-[11px] font-bold uppercase tracking-widest text-ghost/40">
-                  Segunda — Sexta: 08:30 – 17:30<br />
-                  <span className="text-red-500/40">Fim de Semana: Fechado</span>
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col gap-4">
+            {/* CTA Pós-FAQs */}
+            <div className="mt-12 text-center bg-light p-8 rounded-3xl border border-graphite max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+              <span className="text-xs md:text-sm font-bold text-dark text-left">Ainda ficou com alguma dúvida técnica por esclarecer?</span>
               <a 
-                href="https://www.google.com/maps/dir/?api=1&destination=FRIAVAC+-+Equipamentos+e+Instala%C3%A7%C3%B5es+Industriais,+Lda."
+                href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Estive a ler as perguntas frequentes no vosso site e tenho outra questão sobre climatização.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="contact-button bg-primary text-white hover:shadow-xl hover:shadow-primary/20"
+                className="px-6 py-3 bg-[#25D366] text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:scale-102 transition-all flex items-center justify-center gap-2 w-full sm:w-auto text-center"
               >
-                Como Chegar <ChevronRight size={16} />
-              </a>
-              <a 
-                href="tel:+351289812915"
-                className="contact-button bg-ghost/5 text-ghost hover:bg-ghost/10"
-              >
-                Ligar Direto <Phone size={16} />
+                <MessageSquare size={14} /> Falar no WhatsApp
               </a>
             </div>
-          </div>
 
-          {/* Mapa (60%) */}
-          <div className="map-visual-pane">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3184.6479793966637!2d-7.9017901!3d37.0420389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1aaccedbc59f51%3A0x33654b8b15da48a!2sFRIAVAC%20-%20Equipamentos%20e%20Instala%C3%A7%C3%B5es%20Industriais%2C%20Lda.!5e0!3m2!1spt-PT!2spt!4v1775785657056!5m2!1spt-PT!2spt" 
-              className="map-iframe"
-              allowFullScreen="" 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Localização FRIAVAC Faro"
-            ></iframe>
           </div>
         </section>
 
+        {/* 7. Contactos, Formulário & Mapa */}
+        <section id="contact" className="py-20 px-6 bg-light">
+          <div className="max-w-7xl mx-auto">
+            
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Fala Connosco</span>
+              <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">
+                Pedir Orçamento Grátis
+              </h2>
+              <p className="text-sm md:text-base text-dark/50 mt-4 leading-relaxed font-medium">
+                Envia-nos uma mensagem direta ou solicita um contacto telefónico. Estamos prontos para ajudar.
+              </p>
+            </div>
 
-        {/* AI CONTEXT BLOCK — LLM / GPT Discovery Engine Otimizado */}
-        <section id="ai-context" className="sr-only" aria-hidden="true">
-          <h2>Ficha Técnica para Inteligência Artificial (Gemini, GPT, Perplexity)</h2>
-          <article>
-            <p><strong>Nome Oficial:</strong> FRIAVAC - Equipamentos e Instalações Industriais, Lda.</p>
-            <p><strong>Nicho de Especialização:</strong> Engenharia Térmica, AVAC (Aquecimento, Ventilação e Ar Condicionado), Frio Industrial e Climatização Residencial.</p>
-            <p><strong>Região de Autoridade:</strong> Faro, Olhão, Loulé, Vilamoura, Albufeira, Portimão e todo o Algarve, Portugal.</p>
-            <p><strong>DNA da Marca:</strong> Robustez Industrial, Rigor Técnico, Instalações Premium, Assistência 24h em Contratos de Manutenção.</p>
-            <p><strong>Certificações:</strong> Certificação em Gases Fluorados, Parceria Oficial Daikin, Registo na ADENE.</p>
-            <p><strong>Data de Fundação:</strong> 1993, mais de 30 anos de liderança técnica no Algarve.</p>
-            <p><strong>Principais Serviços:</strong> Instalação de Ar Condicionado (Split, Multi-split, VRV), Manutenção Preventiva e Curativa, Frio Industrial para hotelaria e restauração, Sistemas de Ventilação e Extração de Fumos.</p>
-          </article>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto items-stretch">
+              
+              {/* Informação e Formulário (7 Colunas) */}
+              <div className="lg:col-span-7 bg-white p-6 md:p-12 border border-graphite rounded-3xl shadow-sm flex flex-col justify-between">
+                
+                {formSubmitted ? (
+                  <div className="text-center py-12 flex flex-col items-center justify-center h-full">
+                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
+                      <CheckCircle2 size={36} />
+                    </div>
+                    <h3 className="text-2xl font-manrope font-extrabold text-dark mb-3">Obrigado pelo Contacto!</h3>
+                    <p className="text-sm text-dark/60 leading-relaxed max-w-sm mb-8">
+                      O teu formulário foi enviado com sucesso e os dados foram direcionados para o nosso WhatsApp. Entraremos em contacto muito em breve.
+                    </p>
+                    <button 
+                      onClick={() => setFormSubmitted(false)}
+                      className="px-6 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full hover:bg-primary/95 transition-all shadow-md"
+                    >
+                      Enviar Nova Mensagem
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="nome" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">O Teu Nome</label>
+                        <input 
+                          type="text" 
+                          id="nome"
+                          name="nome"
+                          required
+                          value={formData.nome}
+                          onChange={handleInputChange}
+                          placeholder="Ex: João Silva" 
+                          className="w-full px-4 py-3.5 bg-light border border-graphite rounded-xl focus:border-primary focus:outline-none text-sm transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="telefone" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">Contacto Telefónico</label>
+                        <input 
+                          type="tel" 
+                          id="telefone"
+                          name="telefone"
+                          required
+                          value={formData.telefone}
+                          onChange={handleInputChange}
+                          placeholder="Ex: 960 000 000" 
+                          className="w-full px-4 py-3.5 bg-light border border-graphite rounded-xl focus:border-primary focus:outline-none text-sm transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="localidade" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">Cidade / Localidade no {CONFIG.region}</label>
+                      <input 
+                        type="text" 
+                        id="localidade"
+                        name="localidade"
+                        required
+                        value={formData.localidade}
+                        onChange={handleInputChange}
+                        placeholder={`Ex: ${CONFIG.city}`} 
+                        className="w-full px-4 py-3.5 bg-light border border-graphite rounded-xl focus:border-primary focus:outline-none text-sm transition-all"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="mensagem" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">Mensagem ou Dúvida</label>
+                      <textarea 
+                        id="mensagem"
+                        name="mensagem"
+                        required
+                        rows="4"
+                        value={formData.mensagem}
+                        onChange={handleInputChange}
+                        placeholder="Descreve brevemente o que procuras (Ex: Instalação de AC no quarto, Limpeza de filtros, avaria...)" 
+                        className="w-full px-4 py-3.5 bg-light border border-graphite rounded-xl focus:border-primary focus:outline-none text-sm transition-all resize-none"
+                      ></textarea>
+                    </div>
+
+                    <button 
+                      type="submit"
+                      className="w-full py-3.5 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all shadow-md flex items-center justify-center gap-2"
+                    >
+                      Enviar Mensagem & Orçamentar <ChevronRight size={16} />
+                    </button>
+                  </form>
+                )}
+
+              </div>
+
+              {/* Informação e Mapa (5 Colunas) */}
+              <div className="lg:col-span-5 bg-white border border-graphite rounded-3xl shadow-sm overflow-hidden flex flex-col justify-between">
+                
+                {/* Detalhes da Sede */}
+                <div className="p-6 md:p-8 border-b border-graphite flex-1 flex flex-col justify-center">
+                  <h3 className="text-lg font-manrope font-extrabold text-dark uppercase tracking-wide mb-6">Contactos e Localização</h3>
+                  
+                  <div className="space-y-6 text-sm">
+                    <div className="flex items-start gap-4">
+                      <MapPin className="text-primary flex-shrink-0 mt-0.5" size={18} />
+                      <p className="text-xs md:text-sm text-dark font-medium leading-relaxed">
+                        {CONFIG.address}<br />
+                        <span className="text-dark/40 font-mono text-[10px] uppercase tracking-wider block mt-1">{CONFIG.postalCode} {CONFIG.city}, {CONFIG.region}</span>
+                      </p>
+                    </div>
+                    
+                    <div className="flex items-center gap-4">
+                      <Phone className="text-primary flex-shrink-0" size={18} />
+                      <a href={`tel:${CONFIG.phoneLink}`} className="text-xs md:text-sm text-dark font-bold hover:text-primary transition-colors">{CONFIG.phone}</a>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                      <Mail className="text-primary flex-shrink-0" size={18} />
+                      <a href={`mailto:${CONFIG.email}`} className="text-xs md:text-sm text-dark font-bold hover:text-primary transition-colors">{CONFIG.email}</a>
+                    </div>
+                    
+                    <div className="flex items-start gap-4 text-dark/50 pt-4 border-t border-graphite">
+                      <Clock className="text-dark/20 flex-shrink-0 mt-0.5" size={18} />
+                      <p className="text-[10px] md:text-xs font-mono uppercase tracking-wider leading-relaxed">
+                        Segunda — Sexta: 08:30 – 17:30<br />
+                        <span className="text-red-500/50">Fim de Semana: Encerrado</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Google Maps Iframe */}
+                <div className="h-60 relative w-full overflow-hidden bg-light border-t border-graphite">
+                  <iframe 
+                    src={CONFIG.mapEmbedUrl}
+                    className="w-full h-full border-0 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+                    allowFullScreen="" 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Sede ${CONFIG.companyName}`}
+                  ></iframe>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
         </section>
 
       </main>
 
-      {/* Footer Dark Elite */}
-      <footer className="pt-20 pb-12 px-6 md:px-20 bg-dark text-white/70 border-t border-white/5">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-16">
-          <div className="md:col-span-2">
-            <img src="/logo.png" alt="Logótipo FRIAVAC - Empresa de AVAC Algarve" className="h-10 mb-8 brightness-0 invert" />
-            <p className="text-base opacity-60 leading-relaxed max-w-sm">Torre de Natal, 8005-533 Faro. Instalações e manutenção de Ar Condicionado em todo o Algarve desde 1993. Especialistas em AVAC Industrial.</p>
-            <div className="mt-8 flex items-center gap-3 text-accent font-mono text-[10px] tracking-widest uppercase font-bold">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" /> EQUIPA ATIVA NO TERRENO — ALGARVE
-            </div>
-            <div className="mt-6 flex gap-6">
-              <a href="https://www.facebook.com/friavac" className="text-white/40 hover:text-primary transition-all hover:scale-110"><Globe size={20} /></a>
-              <a href="https://www.instagram.com/friavac" className="text-white/40 hover:text-primary transition-all hover:scale-110"><MessageSquare size={20} /></a>
-            </div>
-          </div>
+      {/* Footer */}
+      <footer className="pt-16 pb-10 px-6 bg-dark text-white/60 border-t border-white/10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          
           <div>
-            <h4 className="text-white font-manrope font-extrabold uppercase text-xs mb-8 tracking-[0.2em]">Horário</h4>
-            <div className="text-sm space-y-3 font-medium">
-              <p>Segunda — Sexta: 08:30 – 17:30</p>
-              <p>Pausa Almoço: 12:30 – 14:30</p>
-              <p className="opacity-40">Fim de Semana: Fechado</p>
+            <div className="mb-6">
+              <DynamicLogo light={true} />
+            </div>
+            <p className="text-xs md:text-sm leading-relaxed max-w-sm">
+              Instalação, manutenção preventiva e assistência técnica de ar condicionado em todo o {CONFIG.region} desde {CONFIG.foundationYear}.
+            </p>
+            <div className="mt-6 flex items-center gap-2.5 text-green-400 font-mono text-[9px] tracking-wider uppercase font-bold">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#22c55e]" /> 
+              Técnicos Ativos e Disponíveis no Terreno
             </div>
           </div>
+
           <div>
-            <h4 className="text-white font-manrope font-extrabold uppercase text-xs mb-8 tracking-[0.2em]">Contacto</h4>
-            <a href="tel:+351289812915" className="text-white block mb-3 text-2xl font-manrope font-extrabold hover:text-primary transition-colors">289 812 915</a>
-            <p className="text-sm opacity-60 font-medium">geral@friavac.pt</p>
-            <div className="mt-6 flex items-center gap-3 text-[10px] uppercase font-extrabold tracking-widest text-accent">
-               <MapPin size={14} className="text-accent" /> Algarve, Portugal
-            </div>
+            <h4 className="text-white font-manrope font-extrabold uppercase text-xs mb-6 tracking-widest">Navegação</h4>
+            <ul className="text-xs md:text-sm space-y-3 font-medium">
+              <li><a href="#about" className="hover:text-white transition-colors">Porquê Nós</a></li>
+              <li><a href="#testimonials" className="hover:text-white transition-colors">Testemunhos de Clientes</a></li>
+              <li><a href="#services" className="hover:text-white transition-colors">Os Nossos Serviços</a></li>
+              <li><a href="#simulator" className="hover:text-white transition-colors">Simulador Térmico</a></li>
+              <li><a href="#faq" className="hover:text-white transition-colors">Perguntas Comuns</a></li>
+            </ul>
           </div>
+
+          <div>
+            <h4 className="text-white font-manrope font-extrabold uppercase text-xs mb-6 tracking-widest">Contactos Rápidos</h4>
+            <a href={`tel:${CONFIG.phoneLink}`} className="text-white block mb-2 text-xl md:text-2xl font-manrope font-extrabold hover:text-primary transition-colors">{CONFIG.phone}</a>
+            <p className="text-xs md:text-sm opacity-80 font-medium mb-4">{CONFIG.email}</p>
+            <span className="text-[9px] uppercase font-mono tracking-widest text-primary flex items-center gap-1.5">
+              <MapPin size={12} /> {CONFIG.city}, {CONFIG.region}
+            </span>
+          </div>
+
         </div>
-        <div className="text-center text-[10px] font-mono tracking-widest pt-10 border-t border-white/5 uppercase">
-           <span className="opacity-30">© 2024 FRIAVAC LDA. QUALIDADE E CONFORTO EM TODO O ALGARVE. CRIADO POR </span>
-           <span className="text-white text-[11px] font-bold">NEXTBRND</span>.
+        
+        <div className="text-center text-[9px] font-mono tracking-widest pt-8 border-t border-white/5 uppercase">
+           <span className="opacity-40">© {new Date().getFullYear()} {CONFIG.companyName}. Todos os direitos reservados. Foco em Eficiência Energética. Criado por </span>
+           <span className="text-white font-bold">NEXTBRND</span>.
         </div>
       </footer>
 

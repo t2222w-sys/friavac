@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0077B6",  // Azul Oceano FRIAVAC
-        accent: "#d1b15a",   // Dourado Elite
-        plasma: "#5A42E6",  
-        ghost: "#18181B",    
-        graphite: "#E5E7EB", 
-        dark: "#0A0A14",     
+        primary: "#0284C7",   // Azul fresco (frio)
+        accent: "#F59E0B",    // Âmbar quente (calor)
+        dark: "#0F172A",      // Ardósia escura para contraste de texto
+        light: "#F8FAFC",     // Cinza ultra suave para fundos
+        ghost: "#1E293B",     // Alternativa neutra escura
+        graphite: "#E2E8F0",  // Cinza claro para bordas e divisões
       },
       fontFamily: {
         sans: ["Montserrat", "sans-serif"],
