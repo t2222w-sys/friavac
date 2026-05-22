@@ -53,11 +53,12 @@ const BTUSimulator = () => {
       <div className="space-y-6">
         <div>
           <div className="flex justify-between mb-2">
-            <span className="text-xs font-mono uppercase tracking-wider text-dark/50">Área do Espaço</span>
+            <label htmlFor="area-range" className="text-xs font-mono uppercase tracking-wider text-dark/70 block">Área do Espaço</label>
             <span className="font-extrabold text-primary text-sm">{m2} m²</span>
           </div>
           <input 
             type="range" 
+            id="area-range"
             min="10" 
             max="100" 
             value={m2} 
@@ -83,6 +84,7 @@ const BTUSimulator = () => {
              onClick={() => setIsSunny(!isSunny)}
              className={`w-12 h-6 rounded-full transition-colors relative focus:outline-none ${isSunny ? 'bg-primary' : 'bg-graphite'}`}
              aria-label="Alternar radiação solar"
+             aria-pressed={isSunny}
            >
              <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${isSunny ? 'left-7' : 'left-1'}`} />
            </button>
@@ -117,6 +119,7 @@ const FAQItem = ({ question, answer }) => {
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-5 flex items-center justify-between text-left focus:outline-none group"
+        aria-expanded={isOpen}
       >
         <span className="text-sm md:text-base font-bold text-dark group-hover:text-primary transition-colors">{question}</span>
         <span className={`text-primary text-xl font-bold transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}>+</span>
@@ -222,7 +225,7 @@ Mensagem: ${formData.mensagem}`;
         <InfoBanner />
         <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
           
-          <a href="#" className="focus:outline-none">
+          <a href="#" className="focus:outline-none" aria-label="Ir para o topo da página">
             <DynamicLogo />
           </a>
           
@@ -249,6 +252,8 @@ Mensagem: ${formData.mensagem}`;
               className="md:hidden text-dark p-2 bg-dark/5 rounded-lg hover:bg-dark/10 active:scale-95" 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation-menu"
             >
               {isMenuOpen ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -267,7 +272,7 @@ Mensagem: ${formData.mensagem}`;
       </header>
 
       {/* Menu Mobile Overlay */}
-      <div className={`md:hidden fixed inset-0 bg-white z-[999] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}>
+      <div id="mobile-navigation-menu" className={`md:hidden fixed inset-0 bg-white z-[999] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}>
         <div className="flex-1 pt-28 pb-10 px-6 flex flex-col items-center justify-between">
           <nav className="flex flex-col items-center gap-8 w-full">
             <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Porquê Nós</a>
@@ -403,29 +408,29 @@ Mensagem: ${formData.mensagem}`;
                   <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark">Para Quem É Connosco:</h3>
                 </div>
                 
-                <ul className="space-y-6">
-                  <li className="flex items-start gap-4">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
                     <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
                     <div>
                       <strong className="text-sm text-dark block mb-0.5">Quer Poupar na Fatura da Luz</strong>
                       <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Recomendamos apenas equipamentos de altíssima eficiência energética (A++ ou superior), reduzindo drasticamente o consumo elétrico.</p>
                     </div>
-                  </li>
-                  <li className="flex items-start gap-4">
+                  </div>
+                  <div className="flex items-start gap-4">
                     <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
                     <div>
                       <strong className="text-sm text-dark block mb-0.5">Exige Garantia Real e Instalação Legal</strong>
                       <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Somos certificados por lei para manuseamento de gases fluorados. A instalação cumpre a regra, ativando automaticamente a garantia das marcas.</p>
                     </div>
-                  </li>
-                  <li className="flex items-start gap-4">
+                  </div>
+                  <div className="flex items-start gap-4">
                     <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
                     <div>
                       <strong className="text-sm text-dark block mb-0.5">Valoriza a Limpeza e Acabamento da Casa</strong>
                       <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Garantia absoluta de entulho zero. Deixamos a casa limpa, sem pó acumulado e com todas as tubagens e furos devidamente isolados.</p>
                     </div>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
 
               {/* Para Quem NÃO É */}
@@ -437,29 +442,29 @@ Mensagem: ${formData.mensagem}`;
                   <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark">Para Quem NÃO É:</h3>
                 </div>
                 
-                <ul className="space-y-6">
-                  <li className="flex items-start gap-4">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
                     <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
                     <div>
                       <strong className="text-sm text-dark block mb-0.5">Procura "Biscateiros" sem Certificação</strong>
                       <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Não fazemos serviços clandestinos. Uma instalação ilegal anula a garantia oficial da máquina, arruina o equipamento e infringe a legislação ambiental.</p>
                     </div>
-                  </li>
-                  <li className="flex items-start gap-4">
+                  </div>
+                  <div className="flex items-start gap-4">
                     <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
                     <div>
                       <strong className="text-sm text-dark block mb-0.5">Quer Máquinas de Baixa Qualidade</strong>
                       <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Recusamos trabalhar com marcas de linha branca descartáveis onde não existem peças de reparação oficial nem suporte técnico pós-venda em Portugal.</p>
                     </div>
-                  </li>
-                  <li className="flex items-start gap-4">
+                  </div>
+                  <div className="flex items-start gap-4">
                     <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
                     <div>
                       <strong className="text-sm text-dark block mb-0.5">Foca-se Apenas no Preço Mais Barato</strong>
                       <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Instalar ar condicionado requer materiais resistentes (tubos de cobre de espessura adequada, isolamento reforçado e apoios anti-vibração). Não cortamos na qualidade.</p>
                     </div>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -723,13 +728,13 @@ Mensagem: ${formData.mensagem}`;
                  Evita consumos exagerados de eletricidade ou ter uma máquina incapaz de arrefecer o espaço. Utiliza o nosso simulador térmico simplificado para perceberes a potência aproximada que necessitas.
                </p>
                
-               <ul className="space-y-4">
+               <div className="space-y-4">
                  {["Cálculo calibrado para o clima português", "Fator de radiação solar direta incluído", "Prevenção de sobrecargas energéticas"].map((item, idx) => (
-                   <li key={idx} className="flex items-center gap-3 text-xs md:text-sm font-bold uppercase tracking-wider text-dark/70">
+                   <div key={idx} className="flex items-center gap-3 text-xs md:text-sm font-bold uppercase tracking-wider text-dark/70">
                      <CheckCircle2 className="text-primary flex-shrink-0" size={18} /> {item}
-                   </li>
+                   </div>
                  ))}
-               </ul>
+               </div>
 
                <div className="mt-8 flex flex-col sm:flex-row gap-3">
                  <a 
@@ -963,7 +968,7 @@ Mensagem: ${formData.mensagem}`;
       </main>
 
       {/* Footer */}
-      <footer className="pt-16 pb-10 px-6 bg-dark text-white/60 border-t border-white/10">
+      <footer className="pt-16 pb-10 px-6 bg-dark text-white/80 border-t border-white/10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           
           <div>
@@ -981,13 +986,13 @@ Mensagem: ${formData.mensagem}`;
 
           <div>
             <h4 className="text-white font-manrope font-extrabold uppercase text-xs mb-6 tracking-widest">Navegação</h4>
-            <ul className="text-xs md:text-sm space-y-3 font-medium">
-              <li><a href="#about" className="hover:text-white transition-colors">Porquê Nós</a></li>
-              <li><a href="#testimonials" className="hover:text-white transition-colors">Testemunhos de Clientes</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">Os Nossos Serviços</a></li>
-              <li><a href="#simulator" className="hover:text-white transition-colors">Simulador Térmico</a></li>
-              <li><a href="#faq" className="hover:text-white transition-colors">Perguntas Comuns</a></li>
-            </ul>
+            <nav className="text-xs md:text-sm flex flex-col gap-3 font-medium">
+              <a href="#about" className="hover:text-white transition-colors">Porquê Nós</a>
+              <a href="#testimonials" className="hover:text-white transition-colors">Testemunhos de Clientes</a>
+              <a href="#services" className="hover:text-white transition-colors">Os Nossos Serviços</a>
+              <a href="#simulator" className="hover:text-white transition-colors">Simulador Térmico</a>
+              <a href="#faq" className="hover:text-white transition-colors">Perguntas Comuns</a>
+            </nav>
           </div>
 
           <div>
