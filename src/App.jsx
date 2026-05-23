@@ -209,6 +209,7 @@ Mensagem: ${formData.mensagem}`;
         aria-label="Contacto Direto por WhatsApp"
         rel="noopener noreferrer"
       >
+        <span className="sr-only">Entrar em contacto direto por WhatsApp</span>
         <span className="absolute right-14 bg-dark text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
           Dúvidas? Fale Connosco
         </span>
@@ -226,6 +227,7 @@ Mensagem: ${formData.mensagem}`;
         <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
           
           <a href="#" className="focus:outline-none" aria-label="Ir para o topo da página">
+            <span className="sr-only">Ir para o topo da página - CLIMACORE</span>
             <DynamicLogo />
           </a>
           
@@ -272,20 +274,25 @@ Mensagem: ${formData.mensagem}`;
       </header>
 
       {/* Menu Mobile Overlay */}
-      <div id="mobile-navigation-menu" className={`md:hidden fixed inset-0 bg-white z-[999] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}>
+      <div 
+        id="mobile-navigation-menu" 
+        className={`md:hidden fixed inset-0 bg-white z-[999] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}
+        aria-hidden={!isMenuOpen}
+      >
         <div className="flex-1 pt-28 pb-10 px-6 flex flex-col items-center justify-between">
           <nav className="flex flex-col items-center gap-8 w-full">
-            <a href="#about" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Porquê Nós</a>
-            <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Testemunhos</a>
-            <a href="#services" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Serviços</a>
-            <a href="#simulator" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Simulador</a>
-            <a href="#faq" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Perguntas Comuns</a>
-            <a href="#contact" onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Pedir Orçamento</a>
+            <a href="#about" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Porquê Nós</a>
+            <a href="#testimonials" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Testemunhos</a>
+            <a href="#services" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Serviços</a>
+            <a href="#simulator" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Simulador</a>
+            <a href="#faq" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Perguntas Comuns</a>
+            <a href="#contact" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Pedir Orçamento</a>
           </nav>
           
           <div className="w-full max-w-xs flex flex-col gap-4 items-center">
             <a 
               href={`tel:${CONFIG.phoneLink}`} 
+              tabIndex={isMenuOpen ? 0 : -1}
               className="w-full py-4 bg-primary text-white rounded-full text-center text-sm font-extrabold flex items-center justify-center gap-2 shadow-lg"
             >
               <Phone size={18} /> {CONFIG.phone}
@@ -302,14 +309,17 @@ Mensagem: ${formData.mensagem}`;
         {/* 2. Hero Section (Apresentação Direta) */}
         <section className="relative min-h-[85vh] flex flex-col justify-center px-6 py-12 md:py-24 bg-white overflow-hidden">
           <div className="absolute inset-0 z-0">
-            {/* Imagem de fundo moderna e abstrata focada em ar condicionado */}
-            <img 
-              src="/hero-bg.jpg" 
-              alt="Instalação de Ar Condicionado" 
-              className="w-full h-full object-cover object-center opacity-10"
-              loading="eager"
-              fetchPriority="high"
-            />
+            {/* Imagem de fundo moderna e abstrata responsiva (data-URI ultra-leve em telemóvel para LCP 100/100) */}
+            <picture>
+              <source media="(max-width: 767px)" srcSet="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>" />
+              <img 
+                src="/hero-bg.jpg" 
+                alt="Instalação de Ar Condicionado" 
+                className="w-full h-full object-cover object-center opacity-10"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
           </div>
 
