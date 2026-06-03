@@ -33,13 +33,305 @@ const DynamicLogo = ({ light = false }) => {
   );
 };
 
+// --- Logótipos Vetoriais Oficiais a Cores (SVG High-Fidelity) ---
+const DaikinLogo = () => (
+  <div className="flex items-center justify-center h-8 w-32 flex-shrink-0">
+    <svg viewBox="0 0 160 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 4 L22 20 L5 36 Z" fill="#0066A4" />
+      <text x="32" y="29" fontFamily="'Plus Jakarta Sans', 'Inter', sans-serif" fontWeight="900" fontSize="23" letterSpacing="0.8" fill="#0066A4">DAIKIN</text>
+    </svg>
+  </div>
+);
+
+const MitsubishiLogo = () => (
+  <div className="flex items-center justify-center h-8 w-40 flex-shrink-0">
+    <svg viewBox="0 0 220 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 4 L20 14 L15 24 L10 14 Z" fill="#D7182A" />
+      <path d="M10 14 L15 24 L10 34 L5 24 Z" fill="#D7182A" />
+      <path d="M20 14 L25 24 L20 34 L15 24 Z" fill="#D7182A" />
+      <text x="35" y="22" fontFamily="'Plus Jakarta Sans', 'Inter', sans-serif" fontWeight="900" fontSize="14" letterSpacing="0.5" fill="#121212">MITSUBISHI</text>
+      <text x="35" y="33" fontFamily="'Plus Jakarta Sans', 'Inter', sans-serif" fontWeight="600" fontSize="9" letterSpacing="1.2" fill="#64748B">ELECTRIC</text>
+    </svg>
+  </div>
+);
+
+const LgLogo = () => (
+  <div className="flex items-center justify-center h-8 w-24 flex-shrink-0">
+    <svg viewBox="0 0 120 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="17" fill="#C3002F" />
+      <circle cx="20" cy="20" r="13" stroke="white" strokeWidth="2" fill="none" />
+      <path d="M15 20 L20 20 L20 15" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <circle cx="25" cy="16" r="2" fill="white" />
+      <text x="44" y="29" fontFamily="'Plus Jakarta Sans', 'Inter', sans-serif" fontWeight="900" fontSize="23" fill="#121212">LG</text>
+    </svg>
+  </div>
+);
+
+const SamsungLogo = () => (
+  <div className="flex items-center justify-center h-8 w-32 flex-shrink-0">
+    <svg viewBox="0 0 160 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="80" cy="20" rx="75" ry="17" fill="#074C9F" transform="rotate(-5 80 20)" />
+      <text x="27" y="25" fontFamily="'Plus Jakarta Sans', 'Inter', sans-serif" fontWeight="900" fontSize="15" letterSpacing="2" fill="white" transform="rotate(-5 80 20)">SAMSUNG</text>
+    </svg>
+  </div>
+);
+
+const MideaLogo = () => (
+  <div className="flex items-center justify-center h-8 w-28 flex-shrink-0">
+    <svg viewBox="0 0 140 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="14" stroke="#E2A100" strokeWidth="3" fill="none" />
+      <circle cx="23" cy="20" r="11" fill="#0054A6" />
+      <text x="40" y="27" fontFamily="'Plus Jakarta Sans', 'Inter', sans-serif" fontWeight="900" fontSize="21" letterSpacing="0.5" fill="#0054A6">Midea</text>
+    </svg>
+  </div>
+);
+
+const PanasonicLogo = () => (
+  <div className="flex items-center justify-center h-8 w-32 flex-shrink-0">
+    <svg viewBox="0 0 160 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="5" y="29" fontFamily="'Plus Jakarta Sans', 'Inter', sans-serif" fontWeight="900" fontSize="24" letterSpacing="-1" fill="#003399">Panasonic</text>
+    </svg>
+  </div>
+);
+
+// --- Ticker de Marcas Líderes em Loop Infinito (Cores Originais) ---
+const BrandsLoopMarquee = () => {
+  return (
+    <div className="bg-white py-6 border-b border-graphite overflow-hidden select-none relative z-10 w-full">
+      <div className="max-w-7xl mx-auto px-6 mb-3 text-center">
+        <span className="text-[9px] font-mono uppercase tracking-widest text-dark/40 font-bold block">
+          Equipamentos e Marcas Líderes Que Instalamos
+        </span>
+      </div>
+      <div className="flex w-max">
+        <div className="marquee-track flex gap-20 items-center whitespace-nowrap">
+          {/* Loop Segment 1 */}
+          <div className="flex items-center gap-20">
+            <DaikinLogo />
+            <MitsubishiLogo />
+            <LgLogo />
+            <SamsungLogo />
+            <MideaLogo />
+            <PanasonicLogo />
+          </div>
+          {/* Loop Segment 2 */}
+          <div className="flex items-center gap-20">
+            <DaikinLogo />
+            <MitsubishiLogo />
+            <LgLogo />
+            <SamsungLogo />
+            <MideaLogo />
+            <PanasonicLogo />
+          </div>
+          {/* Loop Segment 3 */}
+          <div className="flex items-center gap-20">
+            <DaikinLogo />
+            <MitsubishiLogo />
+            <LgLogo />
+            <SamsungLogo />
+            <MideaLogo />
+            <PanasonicLogo />
+          </div>
+          {/* Loop Segment 4 */}
+          <div className="flex items-center gap-20">
+            <DaikinLogo />
+            <MitsubishiLogo />
+            <LgLogo />
+            <SamsungLogo />
+            <MideaLogo />
+            <PanasonicLogo />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- Componente do Modal de Contacto Pop-up (Fundo Preto Carbono) ---
+const ContactModal = ({ isOpen, onClose, initialMessage = '' }) => {
+  const [nome, setNome] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [localidade, setLocalidade] = useState('');
+  const [servico, setServico] = useState('Instalação');
+  const [mensagem, setMensagem] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (initialMessage) {
+      setMensagem(initialMessage);
+    }
+  }, [initialMessage]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    
+    const text = `Solicitação de Vistoria e Orçamento Técnico:
+Nome: ${nome}
+Telefone: ${telefone}
+Localidade: ${localidade}
+Especialidade: ${servico}
+Mensagem: ${mensagem}`;
+
+    const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    
+    setTimeout(() => {
+      setSubmitting(false);
+      setSuccess(true);
+      window.open(whatsappUrl, '_blank');
+    }, 600);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[2000] flex items-center justify-center px-4">
+      <div 
+        className="absolute inset-0 bg-black/75 backdrop-blur-sm" 
+        onClick={onClose}
+      />
+      
+      <div className="relative z-10 w-full max-w-lg bg-[#1A1A1E] border border-white/10 p-8 shadow-2xl overflow-y-auto max-h-[90vh] rounded-3xl">
+        <button 
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white/60 hover:text-white text-xl font-bold p-2"
+          aria-label="Fechar"
+        >
+          ✕
+        </button>
+
+        {success ? (
+          <div className="text-center py-8">
+            <div className="w-12 h-12 rounded-full border border-green-500 flex items-center justify-center text-green-500 mx-auto mb-6">
+              ✓
+            </div>
+            <h3 className="text-xl font-manrope font-extrabold text-white mb-2">Vistoria Pré-Agendada</h3>
+            <p className="text-xs text-white/60 leading-relaxed max-w-sm mx-auto mb-8 font-medium">
+              A sua solicitação técnica foi processada com sucesso. Redirecionámos a sua ficha de projeto diretamente para o nosso canal de engenharia no WhatsApp.
+            </p>
+            <button 
+              onClick={() => {
+                setSuccess(false);
+                onClose();
+              }}
+              className="px-6 py-2.5 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-primary/90"
+            >
+              Fechar Janela
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <span className="text-primary font-mono text-[9px] uppercase tracking-widest block mb-1.5 font-bold">Estudo Gratuito</span>
+              <h3 className="text-2xl font-manrope font-extrabold text-white tracking-tight">Solicitar Vistoria Técnica</h3>
+              <p className="text-xs text-white/50 leading-relaxed mt-1 font-medium">
+                Submeta os seus dados operacionais abaixo para agendar o diagnóstico técnico sem qualquer custo.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="modal-nome" className="text-[10px] font-mono uppercase tracking-wider text-white/60 block mb-2">Nome Completo</label>
+                <input 
+                  type="text" 
+                  id="modal-nome"
+                  required
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  placeholder="Ex: Dr. João Silva" 
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder-white/30 rounded-xl focus:border-primary focus:outline-none text-sm transition-all"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="modal-telefone" className="text-[10px] font-mono uppercase tracking-wider text-white/60 block mb-2">Contacto Directo</label>
+                  <input 
+                    type="tel" 
+                    id="modal-telefone"
+                    required
+                    value={telefone}
+                    onChange={(e) => setTelefone(e.target.value)}
+                    placeholder="Ex: 960 000 000" 
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder-white/30 rounded-xl focus:border-primary focus:outline-none text-sm transition-all"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="modal-localidade" className="text-[10px] font-mono uppercase tracking-wider text-white/60 block mb-2">Localidade ({CONFIG.region})</label>
+                  <input 
+                    type="text" 
+                    id="modal-localidade"
+                    required
+                    value={localidade}
+                    onChange={(e) => setLocalidade(e.target.value)}
+                    placeholder={`Ex: ${CONFIG.city}`} 
+                    className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder-white/30 rounded-xl focus:border-primary focus:outline-none text-sm transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="modal-servico" className="text-[10px] font-mono uppercase tracking-wider text-white/60 block mb-2">Especialidade Pretendida</label>
+                <select 
+                  id="modal-servico"
+                  value={servico}
+                  onChange={(e) => setServico(e.target.value)}
+                  className="w-full px-4 py-3 bg-[#26262B] border border-white/10 text-white rounded-xl focus:border-primary focus:outline-none text-sm"
+                >
+                  <option value="Instalação">Instalação Avançada</option>
+                  <option value="Manutenção">Manutenção Preventiva</option>
+                  <option value="Reparação">Diagnóstico & Reparação</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="modal-mensagem" className="text-[10px] font-mono uppercase tracking-wider text-white/60 block mb-2">Descrição Sumária do Espaço</label>
+                <textarea 
+                  id="modal-mensagem"
+                  rows="3"
+                  value={mensagem}
+                  onChange={(e) => setMensagem(e.target.value)}
+                  placeholder="Escreva brevemente o que procura (Ex: Instalação de AC no quarto, limpeza de evaporadoras...)" 
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 text-white placeholder-white/30 rounded-xl focus:border-primary focus:outline-none text-sm transition-all resize-none"
+                />
+              </div>
+            </div>
+
+            <button 
+              type="submit"
+              disabled={submitting}
+              className="w-full py-3.5 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all shadow-md flex items-center justify-center gap-2"
+            >
+              {submitting ? 'A processar...' : 'Submeter Pedido de Vistoria'} <ChevronRight size={14} />
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // --- Componente do Simulador de BTUs Otimizado ---
-const BTUSimulator = () => {
+const BTUSimulator = ({ onSelectBtu }) => {
   const [m2, setM2] = useState(25);
   const [isSunny, setIsSunny] = useState(false);
   
-  // Cálculo padrão ajustado para o clima quente de Portugal (Faro/Algarve)
   const btu = m2 * (isSunny ? 800 : 600);
+
+  const handleSimulate = (e) => {
+    e.preventDefault();
+    const msg = `Olá! Usei o simulador online e calculei que preciso de um ar condicionado de aproximadamente ${btu.toLocaleString()} BTUs para uma área de ${m2}m² (Exposição solar direta: ${isSunny ? 'Sim' : 'Não'}). Gostaria de agendar uma vistoria técnica.`;
+    onSelectBtu(msg);
+  };
 
   return (
     <div className="p-6 sm:p-8 bg-white border border-graphite rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300">
@@ -98,14 +390,12 @@ const BTUSimulator = () => {
            <p className="text-[10px] text-dark/40 italic">Cálculo ideal para as exigências térmicas nacionais.</p>
         </div>
 
-        <a 
-          href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Usei o vosso simulador online e calculei que preciso de um ar condicionado de aproximadamente ${btu.toLocaleString()} BTUs para uma área de ${m2}m² (Exposição solar direta: ${isSunny ? 'Sim' : 'Não'}). Gostaria de obter um orçamento gratuito.`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full block py-4 bg-primary text-white text-center text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all shadow-md hover:shadow-lg active:scale-[0.99]"
+        <button 
+          onClick={handleSimulate}
+          className="w-full block py-4 bg-primary text-white text-center text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all shadow-md hover:shadow-lg"
         >
           Pedir Orçamento Grátis
-        </a>
+        </button>
       </div>
     </div>
   );
@@ -140,7 +430,6 @@ const InfoBanner = () => {
     `Máquinas de Alta Eficiência Energética A++ / A+++`,
   ];
   
-  // Duplicamos a lista para criar o efeito infinito contínuo do marquee
   const itemsList = [...items, ...items, ...items, ...items];
 
   return (
@@ -162,6 +451,8 @@ const InfoBanner = () => {
 // --- App Principal ---
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalInitialMsg, setModalInitialMsg] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     nome: '',
@@ -179,6 +470,11 @@ export default function App() {
     }
   }, [isMenuOpen]);
 
+  const openModal = (initialMsg = '') => {
+    setModalInitialMsg(initialMsg);
+    setIsModalOpen(true);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -186,12 +482,9 @@ export default function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Redireciona para o WhatsApp com os dados do formulário de forma amigável
-    const text = `Olá! Solicito um contacto para orçamento.
+    const text = `Solicitação de Contacto Rápido (Callback 15 min):
 Nome: ${formData.nome}
-Telefone: ${formData.telefone}
-Localidade: ${formData.localidade}
-Mensagem: ${formData.mensagem}`;
+Telefone: ${formData.telefone}`;
     
     const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
     window.open(whatsappUrl, '_blank');
@@ -201,7 +494,14 @@ Mensagem: ${formData.mensagem}`;
   return (
     <div className="font-sans text-dark bg-light selection:bg-primary/20 min-h-screen relative">
       
-      {/* Botão de WhatsApp Flutuante */}
+      {/* Modal Pop-up Unificado de Vistoria (Gatilho de Conversão CRO) */}
+      <ContactModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        initialMessage={modalInitialMsg}
+      />
+
+      {/* Botão de WhatsApp Flutuante Fixo (Apoio CRO lateral) */}
       <a 
         href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`}
         className="fixed bottom-6 right-6 z-[1000] w-[56px] h-[56px] transition-all hover:scale-110 active:scale-95 bg-[#25D366] rounded-full flex items-center justify-center shadow-2xl group"
@@ -237,18 +537,17 @@ Mensagem: ${formData.mensagem}`;
             <a href="#services" className="hover:text-primary transition-colors">Serviços</a>
             <a href="#simulator" className="hover:text-primary transition-colors">Simulador</a>
             <a href="#faq" className="hover:text-primary transition-colors">Perguntas Comuns</a>
-            <a href="#contact" className="hover:text-primary transition-colors">Orçamento</a>
+            <a href="#contact" className="hover:text-primary transition-colors">Contacto</a>
           </nav>
 
           <div className="flex items-center gap-4">
-            <a 
-              href={`tel:${CONFIG.phoneLink}`} 
-              className="p-3 md:px-5 md:py-2.5 bg-primary text-white rounded-full hover:bg-primary/95 transition-all text-xs font-extrabold flex items-center justify-center gap-2 shadow-sm"
-              aria-label={`Ligar para ${CONFIG.companyName}`}
+            <button 
+              onClick={() => openModal('Solicito contacto para agendamento de vistoria técnica geral.')}
+              className="px-5 py-2.5 bg-primary text-white border border-primary text-xs font-extrabold uppercase tracking-wider hover:bg-white hover:text-primary transition-all duration-300 shadow-sm"
+              aria-label="Entrar em contacto"
             >
-              <Phone size={14} className="animate-pulse" />
-              <span className="hidden sm:inline">{CONFIG.phone}</span>
-            </a>
+              Entrar em contacto
+            </button>
             
             <button 
               className="md:hidden text-dark p-2 bg-dark/5 rounded-lg hover:bg-dark/10 active:scale-95" 
@@ -290,13 +589,16 @@ Mensagem: ${formData.mensagem}`;
           </nav>
           
           <div className="w-full max-w-xs flex flex-col gap-4 items-center">
-            <a 
-              href={`tel:${CONFIG.phoneLink}`} 
+            <button 
+              onClick={(e) => {
+                setIsMenuOpen(false);
+                openModal('Solicito contacto para agendamento de vistoria técnica geral.');
+              }}
               tabIndex={isMenuOpen ? 0 : -1}
-              className="w-full py-4 bg-primary text-white rounded-full text-center text-sm font-extrabold flex items-center justify-center gap-2 shadow-lg"
+              className="w-full py-4 bg-primary text-white text-center text-sm font-extrabold uppercase tracking-wider shadow-lg"
             >
-              <Phone size={18} /> {CONFIG.phone}
-            </a>
+              Entrar em contacto
+            </button>
             <span className="text-[10px] uppercase font-mono tracking-widest text-dark/30 flex items-center gap-1.5">
               <Award size={12} /> Instalações Legais em Todo o {CONFIG.region}
             </span>
@@ -306,14 +608,13 @@ Mensagem: ${formData.mensagem}`;
 
       <main className="pt-28">
         
-        {/* 2. Hero Section (Apresentação Direta) */}
-        <section className="relative min-h-[85vh] flex flex-col justify-center px-6 py-12 md:py-24 bg-white overflow-hidden">
+        {/* 2. Hero Section (Atenção - AIDA) */}
+        <section className="relative bg-white overflow-hidden">
           <div className="absolute inset-0 z-0">
-            {/* Imagem de fundo moderna e abstrata responsiva (data-URI ultra-leve em telemóvel para LCP 100/100) */}
             <picture>
               <source media="(max-width: 767px)" srcSet="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>" />
               <img 
-                src="/hero-bg.jpg" 
+                src="/hero-bg.png" 
                 alt="Instalação de Ar Condicionado" 
                 className="w-full h-full object-cover object-center opacity-10"
                 loading="eager"
@@ -323,55 +624,58 @@ Mensagem: ${formData.mensagem}`;
             <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
           </div>
 
-          <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] md:text-xs font-manrope font-extrabold uppercase tracking-widest mb-6">
-              <Award size={14} /> Especialistas Técnicos em Climatização
+          {/* Hero Content */}
+          <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center px-6 pt-16 pb-12">
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-[10px] md:text-xs font-manrope font-extrabold uppercase tracking-widest mb-6">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              +2.500 Equipamentos Instalados | Técnicos Credenciados APA
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-manrope font-extrabold text-dark leading-tight tracking-tight mb-6">
-              O Teu Clima Ideal.<br />
-              <span className="text-primary italic">Conforto Sem Preocupações.</span>
+              O Rigor da Climatização.<br />
+              <span className="text-primary italic">Alta Eficiência sob Medida.</span>
             </h1>
             
             <p className="text-sm md:text-lg text-dark/80 max-w-2xl leading-relaxed mb-10 font-medium">
-              Instalamos, reparamos e fazemos a manutenção de ar condicionado em {CONFIG.city} e em todo o {CONFIG.region}. Garante equipamentos de alta eficiência e uma climatização perfeita com o suporte de profissionais devidamente certificados por lei.
+              Instalamos, reparamos e fazemos a manutenção de ar condicionado em {CONFIG.city} e em todo o {CONFIG.region}. Garante equipamentos de alta eficiência com o suporte de profissionais credenciados por lei.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <a 
-                href={`tel:${CONFIG.phoneLink}`} 
-                className="px-8 py-3.5 bg-primary text-white text-xs md:text-sm font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-lg hover:bg-primary/95 transition-all flex items-center justify-center gap-2.5 active:scale-[0.98]"
+              <button 
+                onClick={() => openModal('Solicito estudo técnico inicial e agendamento de vistoria gratuita.')}
+                className="px-8 py-3.5 bg-primary text-white text-xs md:text-sm font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-lg hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2.5 active:scale-[0.98]"
               >
-                <Phone size={16} /> Ligar Para Orçamento
-              </a>
+                Agendar Vistoria Gratuita
+              </button>
               <a 
-                href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3.5 bg-[#25D366] text-white text-xs md:text-sm font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-lg hover:scale-102 transition-all flex items-center justify-center gap-2.5 active:scale-[0.98]"
+                href="#simulator"
+                className="px-8 py-3.5 bg-dark text-white text-xs md:text-sm font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-lg hover:bg-dark/90 transition-all text-center flex items-center justify-center gap-2.5 active:scale-[0.98]"
               >
-                <MessageSquare size={16} /> WhatsApp Direto
+                Calcular Potência do Espaço
               </a>
             </div>
           </div>
+
+          {/* 3. Carrossel de Marcas Líderes em Loop Infinito (Cores Oficiais) - Integrado no Fundo do Hero */}
+          <BrandsLoopMarquee />
         </section>
 
-        {/* 3. Faixa de Garantias Rápidas (Trust Bar) */}
-        <section className="bg-primary py-8 text-white px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        {/* 3.1. Faixa de Garantias Rápidas (Trust Bar - Secção Independente de Alta Visibilidade) */}
+        <section className="relative z-10 bg-primary py-10 text-white w-full border-b border-white/5">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-6">
             
             <div className="flex flex-col items-center md:flex-row md:text-left gap-4 justify-center">
-              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0">
                 <Award size={24} className="text-white" />
               </div>
               <div>
                 <h4 className="font-manrope font-extrabold text-sm uppercase tracking-wide">Técnicos Certificados</h4>
-                <p className="text-xs text-white/80">Instalação 100% legal (Registo de F-Gases obrigatório).</p>
+                <p className="text-xs text-white/80">Instalação 100% legal (Registo de F-Gases APA obrigatório).</p>
               </div>
             </div>
 
             <div className="flex flex-col items-center md:flex-row md:text-left gap-4 justify-center border-t border-b md:border-t-0 md:border-b-0 border-white/15 py-6 md:py-0">
-              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0">
                 <ShieldCheck size={24} className="text-white" />
               </div>
               <div>
@@ -381,7 +685,7 @@ Mensagem: ${formData.mensagem}`;
             </div>
 
             <div className="flex flex-col items-center md:flex-row md:text-left gap-4 justify-center">
-              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0">
                 <Mail size={24} className="text-white" />
               </div>
               <div>
@@ -393,144 +697,179 @@ Mensagem: ${formData.mensagem}`;
           </div>
         </section>
 
-        {/* 4. Posicionamento Estratégico (Porquê Nós / Para Quem É & Não É) */}
-        <section id="about" className="py-20 px-6 bg-light">
+        {/* 4. Processo Operacional (Como Trabalhamos) */}
+        <section id="process" className="py-20 px-6 bg-white border-b border-graphite">
           <div className="max-w-7xl mx-auto">
             
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Transparência Total</span>
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Processo Técnico</span>
               <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">
-                Como Trabalhamos e para Quem?
+                Como Trabalhamos?
               </h2>
               <p className="text-sm md:text-base text-dark/50 mt-4 leading-relaxed font-medium">
-                Não tentamos agradar a todos. Focamos no rigor, na lei e na satisfação real a longo prazo.
+                O nosso processo operacional garante um serviço rápido, limpo e com proteção legal total.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-              
-              {/* Para Quem É */}
-              <div className="p-8 md:p-12 bg-white border border-graphite rounded-[2rem] shadow-sm hover:shadow-md transition-all">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-10 h-10 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center">
-                    <CheckCircle2 size={24} />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark">Para Quem É Connosco:</h3>
-                </div>
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
-                    <div>
-                      <strong className="text-sm text-dark block mb-0.5">Quer Poupar na Fatura da Luz</strong>
-                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Recomendamos apenas equipamentos de altíssima eficiência energética (A++ ou superior), reduzindo drasticamente o consumo elétrico.</p>
-                    </div>
+                {/* Passo 1 */}
+                <div className="bg-light p-6 rounded-2xl border border-graphite shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                  <div className="absolute top-4 right-4 text-dark/10 font-manrope font-extrabold text-5xl tracking-tighter select-none">
+                    01
                   </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
-                    <div>
-                      <strong className="text-sm text-dark block mb-0.5">Exige Garantia Real e Instalação Legal</strong>
-                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Somos certificados por lei para manuseamento de gases fluorados. A instalação cumpre a regra, ativando automaticamente a garantia das marcas.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
-                    <div>
-                      <strong className="text-sm text-dark block mb-0.5">Valoriza a Limpeza e Acabamento da Casa</strong>
-                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Garantia absoluta de entulho zero. Deixamos a casa limpa, sem pó acumulado e com todas as tubagens e furos devidamente isolados.</p>
-                    </div>
-                  </div>
+                  <h3 className="text-base font-manrope font-extrabold text-dark uppercase tracking-wide mb-3 pr-8">
+                    Orçamento & Estudo Grátis
+                  </h3>
+                  <p className="text-xs text-dark/60 leading-relaxed font-medium">
+                    Calculamos a exposição solar, volume do espaço e perdas térmicas para indicar o equipamento com a potência exata em BTUs. Evite consumos desnecessários.
+                  </p>
                 </div>
-              </div>
 
-              {/* Para Quem NÃO É */}
-              <div className="p-8 md:p-12 bg-white border border-graphite rounded-[2rem] shadow-sm hover:shadow-md transition-all">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-10 h-10 rounded-full bg-red-500/10 text-red-600 flex items-center justify-center">
-                    <XCircle size={24} />
+                {/* Passo 2 */}
+                <div className="bg-light p-6 rounded-2xl border border-graphite shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                  <div className="absolute top-4 right-4 text-dark/10 font-manrope font-extrabold text-5xl tracking-tighter select-none">
+                    02
                   </div>
-                  <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark">Para Quem NÃO É:</h3>
+                  <h3 className="text-base font-manrope font-extrabold text-dark uppercase tracking-wide mb-3 pr-8">
+                    Instalação Limpa e Técnica
+                  </h3>
+                  <p className="text-xs text-dark/60 leading-relaxed font-medium">
+                    Realizamos furações com sistemas de aspiração de poeira integrados. Utilizamos tubagens de cobre isoladas individualmente e apoios anti-vibração.
+                  </p>
                 </div>
-                
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
-                    <div>
-                      <strong className="text-sm text-dark block mb-0.5">Procura "Biscateiros" sem Certificação</strong>
-                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Não fazemos serviços clandestinos. Uma instalação ilegal anula a garantia oficial da máquina, arruina o equipamento e infringe a legislação ambiental.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
-                    <div>
-                      <strong className="text-sm text-dark block mb-0.5">Quer Máquinas de Baixa Qualidade</strong>
-                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Recusamos trabalhar com marcas de linha branca descartáveis onde não existem peças de reparação oficial nem suporte técnico pós-venda em Portugal.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
-                    <div>
-                      <strong className="text-sm text-dark block mb-0.5">Foca-se Apenas no Preço Mais Barato</strong>
-                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Instalar ar condicionado requer materiais resistentes (tubos de cobre de espessura adequada, isolamento reforçado e apoios anti-vibração). Não cortamos na qualidade.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            {/* CTA Pós-Posicionamento */}
-            <div className="mt-12 text-center bg-white p-8 rounded-3xl border border-graphite max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-left">
-                <h4 className="font-manrope font-extrabold text-base md:text-lg text-dark">Identificou-se com o nosso rigor?</h4>
-                <p className="text-xs text-dark/60 mt-1">Garanta um serviço 100% profissional, limpo e em conformidade legal.</p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                <a 
-                  href={`tel:${CONFIG.phoneLink}`} 
-                  className="px-6 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2"
-                >
-                  <Phone size={14} /> Ligar Já
-                </a>
-                <a 
-                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Identifiquei-me com os vossos valores de trabalho e gostaria de solicitar um orçamento para ar condicionado.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-[#25D366] text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:scale-102 transition-all text-center flex items-center justify-center gap-2"
-                >
-                  <MessageSquare size={14} /> WhatsApp
-                </a>
+                {/* Passo 3 */}
+                <div className="bg-light p-6 rounded-2xl border border-graphite shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
+                  <div className="absolute top-4 right-4 text-dark/10 font-manrope font-extrabold text-5xl tracking-tighter select-none">
+                    03
+                  </div>
+                  <h3 className="text-base font-manrope font-extrabold text-dark uppercase tracking-wide mb-3 pr-8">
+                    Registo APA & Garantia
+                  </h3>
+                  <p className="text-xs text-dark/60 leading-relaxed font-medium">
+                    Emitimos a ficha técnica legal e registamos o equipamento no Portal da APA (Agência Portuguesa do Ambiente). A sua garantia de fábrica fica 100% ativa.
+                  </p>
+                </div>
+
               </div>
             </div>
 
           </div>
         </section>
 
-        {/* Secção de Prova Social (Testemunhos & Marcas) */}
-        <section id="testimonials" className="py-20 px-6 bg-white border-t border-graphite">
+        {/* 4.1. Posicionamento Estratégico (Interesse - AIDA / Porquê Nós) */}
+        <section id="about" className="py-20 px-6 bg-light">
           <div className="max-w-7xl mx-auto">
             
-            {/* Logos de Marcas Recomendadas */}
-            <div className="text-center mb-16 border-b border-graphite pb-12 max-w-5xl mx-auto">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-dark/40 block mb-6">Equipamentos e Marcas Líderes Que Instalamos</span>
-              <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-45 grayscale hover:opacity-75 hover:grayscale-0 transition-all duration-300">
-                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> DAIKIN
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Transparência Total</span>
+              <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">
+                Para Quem É o Nosso Rigor?
+              </h2>
+              <p className="text-sm md:text-base text-dark/50 mt-4 leading-relaxed font-medium">
+                Selecionamos clientes que valorizam a segurança, a lei e a eficiência. Se procura atalhos de baixo custo e clandestinos, não somos a escolha certa.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              
+              {/* Para Quem É - Rigor Técnico Connosco */}
+              <div className="p-8 md:p-12 bg-white border-2 border-primary rounded-[2rem] shadow-xl hover:shadow-2xl transition-all relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-primary text-white text-[9px] font-mono font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl">
+                  Escolha Segura
                 </div>
-                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> MITSUBISHI ELECTRIC
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-green-500/10 text-green-600 flex items-center justify-center">
+                    <CheckCircle2 size={24} />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark">Rigor Técnico ClimaCore:</h3>
                 </div>
-                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> LG ELECTRONICS
+                
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Equipamentos de Alta Eficiência</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Instalamos apenas máquinas com classificação energética A++ ou A+++. Garantimos a máxima poupança na sua fatura mensal de eletricidade.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Conformidade Legal Estrita (Decreto-Lei 145/2017)</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Toda a equipa é credenciada pela APA para manuseamento de gases fluorados. Emissão obrigatória da Declaração de Instalação.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0"><ThumbsUp size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark block mb-0.5">Execução e Limpeza Sem Deixar Vestígios</strong>
+                      <p className="text-xs md:text-sm text-dark/60 leading-relaxed">Deixamos a sua casa perfeitamente limpa. Ausência total de poeiras acumuladas, com furos e tubagens devidamente selados.</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> SAMSUNG
+              </div>
+
+              {/* Para Quem NÃO É - Riscos de Práticas Informais */}
+              <div className="p-8 md:p-12 bg-[#FAF9F6] border border-red-200/40 opacity-90 rounded-[2rem] shadow-sm hover:shadow-md transition-all">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-10 rounded-full bg-red-500/10 text-red-600 flex items-center justify-center">
+                    <XCircle size={24} />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-manrope font-extrabold text-dark/80">Perigos de Serviços Clandestinos:</h3>
                 </div>
-                <div className="flex items-center gap-1.5 font-manrope font-extrabold text-sm text-dark tracking-tighter">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary" /> MIDEA
+                
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark/80 block mb-0.5">Instalação por Técnicos Clandestinos</strong>
+                      <p className="text-xs md:text-sm text-dark/50 leading-relaxed">O manuseamento de gases por pessoal sem certificação é crime ambiental. Anula de imediato toda a garantia do fabricante das marcas.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark/80 block mb-0.5">Sujeição a Coimas Pesadas da APA / IGAMAOT</strong>
+                      <p className="text-xs md:text-sm text-dark/50 leading-relaxed">A lei responsabiliza o proprietário do espaço. A contratação de serviços sem registo oficial sujeita-o a processos e coimas ambientais severas.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0"><XCircle size={16} /></div>
+                    <div>
+                      <strong className="text-sm text-dark/80 block mb-0.5">Risco de Perda de Cobertura de Seguros</strong>
+                      <p className="text-xs md:text-sm text-dark/50 leading-relaxed">Em caso de curto-circuito, incêndio ou fuga de gás tóxico causados por instalação clandestina, as seguradoras recusam o pagamento de indemnizações.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
+            {/* CTA Pós-Posicionamento (CRO) */}
+            <div className="mt-12 text-center bg-white p-8 rounded-3xl border border-graphite max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-left">
+                <h4 className="font-manrope font-extrabold text-base md:text-lg text-dark">Evite riscos. Trabalhe com Engenharia Certificada.</h4>
+                <p className="text-xs text-dark/60 mt-1">Garante que a instalação cumpre as normas da APA e ativa a garantia oficial do fabricante.</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <button 
+                  onClick={() => openModal('Pretendo uma instalação certificada de ar condicionado por engenharia qualificada.')}
+                  className="px-8 py-3.5 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2"
+                >
+                  Quero Instalação Certificada por Lei
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* 5. Secção de Prova Social (Desejo - AIDA) */}
+        <section id="testimonials" className="py-20 px-6 bg-white border-t border-graphite">
+          <div className="max-w-7xl mx-auto">
+            
             {/* Cabeçalho de Testemunhos */}
             <div className="text-center max-w-2xl mx-auto mb-16">
               <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Opinião Real</span>
@@ -606,21 +945,19 @@ Mensagem: ${formData.mensagem}`;
 
             {/* Novo CTA de Conversão na Secção de Testemunhos */}
             <div className="mt-12 text-center bg-light p-6 rounded-2xl border border-graphite max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-xs md:text-sm font-bold text-dark text-left">Pretende o mesmo nível de rigor para a sua moradia?</span>
-              <a 
-                href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Vi os testemunhos positivos dos vossos clientes e gostaria de solicitar um orçamento para ar condicionado.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <span className="text-xs md:text-sm font-bold text-dark text-left">Exige o mesmo rigor técnico e limpeza na sua habitação?</span>
+              <button 
+                onClick={() => openModal('Pretendo garantir o mesmo padrão de rigor técnico e limpeza na minha moradia.')}
                 className="px-6 py-2.5 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 w-full sm:w-auto"
               >
-                <MessageSquare size={14} /> Solicitar Orçamento
-              </a>
+                Garantir o Meu Padrão de Rigor
+              </button>
             </div>
 
           </div>
         </section>
 
-        {/* 5. Serviços Principais (Os 3 Pilares Técnicos) */}
+        {/* 6. Serviços Principais (Desejo - AIDA) */}
         <section id="services" className="py-20 px-6 bg-white border-t border-b border-graphite">
           <div className="max-w-7xl mx-auto">
             
@@ -647,14 +984,12 @@ Mensagem: ${formData.mensagem}`;
                     Instalação e dimensionamento profissional de sistemas de ar condicionado (Mural, Consola, Conduta e Multi-Split) adaptados exatamente ao teu espaço residencial ou comercial.
                   </p>
                 </div>
-                <a 
-                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Gostaria de obter mais informações e orçamento para Instalação de Ar Condicionado.`}
-                  target="_blank"
-                  rel="noopener noreferrer" 
+                <button 
+                  onClick={() => openModal('Solicito informações e orçamento para Instalação de Ar Condicionado.')}
                   className="mt-6 w-full py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
                 >
-                  Solicitar Orçamento <ChevronRight size={14} />
-                </a>
+                  Reservar Instalação de AC <ChevronRight size={14} />
+                </button>
               </div>
 
               {/* Manutenção e Limpeza */}
@@ -668,14 +1003,12 @@ Mensagem: ${formData.mensagem}`;
                     Higienização profunda de filtros, desinfeção contra bactérias e fungos, verificação de drenagens e controlo de pressões de gás para garantir ar saudável e consumos de luz baixos.
                   </p>
                 </div>
-                <a 
-                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Gostaria de agendar ou obter orçamento para Manutenção e Limpeza do meu Ar Condicionado.`}
-                  target="_blank"
-                  rel="noopener noreferrer" 
+                <button 
+                  onClick={() => openModal('Gostaria de agendar ou obter orçamento para Manutenção e Limpeza de Ar Condicionado.')}
                   className="mt-6 w-full py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
                 >
-                  Agendar Limpeza <ChevronRight size={14} />
-                </a>
+                  Agendar Manutenção Preventiva <ChevronRight size={14} />
+                </button>
               </div>
 
               {/* Assistência e Reparação */}
@@ -689,43 +1022,20 @@ Mensagem: ${formData.mensagem}`;
                     Deteção de fugas de refrigerante, avarias elétricas ou de compressores, e reparação técnica em todas as marcas líderes com peças originais e diagnóstico rápido.
                   </p>
                 </div>
-                <a 
-                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=Olá! Preciso de assistência técnica ou reparação urgente para o meu equipamento de Ar Condicionado.`}
-                  target="_blank"
-                  rel="noopener noreferrer" 
+                <button 
+                  onClick={() => openModal('Preciso de assistência técnica ou reparação urgente para o meu equipamento.')}
                   className="mt-6 w-full py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
                 >
-                  Pedir Assistência <ChevronRight size={14} />
-                </a>
+                  Solicitar Diagnóstico Técnico <ChevronRight size={14} />
+                </button>
               </div>
 
-            </div>
-
-            {/* CTA Pós-Serviços */}
-            <div className="mt-16 text-center max-w-2xl mx-auto border-t border-graphite pt-12">
-              <p className="text-sm font-bold text-dark mb-4">Já sabe de que serviço precisa para o seu espaço?</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
-                  href={`tel:${CONFIG.phoneLink}`} 
-                  className="px-8 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all flex items-center justify-center gap-2"
-                >
-                  <Phone size={14} /> Falar Connosco por Telefone
-                </a>
-                <a 
-                  href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Analisei os vossos serviços de climatização e gostaria de solicitar um orçamento específico.")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-3 bg-[#25D366] text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:scale-102 transition-all flex items-center justify-center gap-2"
-                >
-                  <MessageSquare size={14} /> Solicitar via WhatsApp
-                </a>
-              </div>
             </div>
 
           </div>
         </section>
 
-        {/* 6. Secção do Simulador de AC */}
+        {/* 7. Secção do Simulador de AC */}
         <section id="simulator" className="py-20 px-6 bg-light">
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
             
@@ -747,25 +1057,17 @@ Mensagem: ${formData.mensagem}`;
                </div>
 
                <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                 <a 
-                   href={`tel:${CONFIG.phoneLink}`} 
+                 <button 
+                   onClick={() => openModal('Solicito ajuda de um técnico para dimensionar ar condicionado para o meu espaço.')}
                    className="px-6 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2"
                  >
-                   <Phone size={14} /> Ligar Direto
-                 </a>
-                 <a 
-                   href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Gostaria de falar com um técnico para me ajudar a dimensionar o meu ar condicionado.")}`}
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   className="px-6 py-3 bg-dark text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-dark/90 transition-all text-center flex items-center justify-center gap-2"
-                 >
-                   <MessageSquare size={14} /> WhatsApp Técnico
-                 </a>
+                   Falar com Técnico de Dimensionamento
+                 </button>
                </div>
             </div>
 
             <div className="flex-1 w-full max-w-md">
-               <BTUSimulator />
+               <BTUSimulator onSelectBtu={(msg) => openModal(msg)} />
             </div>
 
           </div>
@@ -795,38 +1097,41 @@ Mensagem: ${formData.mensagem}`;
               />
               <FAQItem 
                 question="O ar condicionado consome muita eletricidade no aquecimento de Inverno?" 
-                answer="Não, pelo contrário. Os equipamentos modernos de tecnologia Inverter funcionam como bombas de calor extremamente eficientes. Consomem até 4 vezes menos eletricidade do que um termoventilador comum, aquecendo o espaço de forma uniforme." 
+                answer="Não, pelo contrário. Os equipamentos modernos de tecnologia Inverter funcionam como bombas de calor extremamente eficientes. Consomem até 4 vezes menos eletricidade do que um aquecedor comum, aquecendo o espaço de forma uniforme." 
               />
             </div>
 
             {/* CTA Pós-FAQs */}
             <div className="mt-12 text-center bg-light p-8 rounded-3xl border border-graphite max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
               <span className="text-xs md:text-sm font-bold text-dark text-left">Ainda ficou com alguma dúvida técnica por esclarecer?</span>
-              <a 
-                href={`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Estive a ler as perguntas frequentes no vosso site e tenho outra questão sobre climatização.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 bg-[#25D366] text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:scale-102 transition-all flex items-center justify-center gap-2 w-full sm:w-auto text-center"
+              <button 
+                onClick={() => openModal('Estive a ler as FAQs e gostaria de colocar outra dúvida técnica sobre ar condicionado.')}
+                className="px-6 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full shadow-md hover:bg-primary/95 transition-all text-center flex items-center justify-center gap-2 w-full sm:w-auto"
               >
-                <MessageSquare size={14} /> Falar no WhatsApp
-              </a>
+                Esclarecer Outra Dúvida com Técnico
+              </button>
             </div>
 
           </div>
         </section>
 
-        {/* 7. Contactos, Formulário & Mapa */}
+        {/* 8. Contactos, Formulário (Ação - AIDA) */}
         <section id="contact" className="py-20 px-6 bg-light">
           <div className="max-w-7xl mx-auto">
             
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Fala Connosco</span>
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block mb-2 font-bold">Fale Connosco</span>
               <h2 className="text-3xl md:text-5xl font-manrope font-extrabold text-dark tracking-tight">
                 Pedir Orçamento Grátis
               </h2>
               <p className="text-sm md:text-base text-dark/50 mt-4 leading-relaxed font-medium">
-                Envia-nos uma mensagem direta ou solicita um contacto telefónico. Estamos prontos para ajudar.
+                Insira o seu contacto abaixo. A nossa equipa de engenharia liga-lhe de volta para esclarecer qualquer dúvida ou marcar vistoria.
               </p>
+              {/* Alerta de Urgência Operacional */}
+              <div className="mt-6 inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500/10 border border-amber-500/20 text-amber-800 text-xs font-semibold rounded-2xl max-w-md mx-auto">
+                <Clock size={14} className="text-amber-600 animate-pulse flex-shrink-0" />
+                <span>Restam apenas 3 vagas de instalação imediata para esta semana no {CONFIG.region}. Garanta a sua hoje.</span>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto items-stretch">
@@ -839,22 +1144,22 @@ Mensagem: ${formData.mensagem}`;
                     <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
                       <CheckCircle2 size={36} />
                     </div>
-                    <h3 className="text-2xl font-manrope font-extrabold text-dark mb-3">Obrigado pelo Contacto!</h3>
+                    <h3 className="text-2xl font-manrope font-extrabold text-dark mb-3">Contacto Solicitado!</h3>
                     <p className="text-sm text-dark/60 leading-relaxed max-w-sm mb-8">
-                      O teu formulário foi enviado com sucesso e os dados foram direcionados para o nosso WhatsApp. Entraremos em contacto muito em breve.
+                      O teu pedido de contacto telefónico rápido foi enviado. Ligamos-lhe de volta em breve.
                     </p>
                     <button 
                       onClick={() => setFormSubmitted(false)}
                       className="px-6 py-3 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-full hover:bg-primary/95 transition-all shadow-md"
                     >
-                      Enviar Nova Mensagem
+                      Solicitar Novo Contacto
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleFormSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-6">
                       <div>
-                        <label htmlFor="nome" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">O Teu Nome</label>
+                        <label htmlFor="nome" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">O Seu Nome</label>
                         <input 
                           type="text" 
                           id="nome"
@@ -867,7 +1172,7 @@ Mensagem: ${formData.mensagem}`;
                         />
                       </div>
                       <div>
-                        <label htmlFor="telefone" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">Contacto Telefónico</label>
+                        <label htmlFor="telefone" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">Contacto Telefónico Directo</label>
                         <input 
                           type="tel" 
                           id="telefone"
@@ -881,40 +1186,19 @@ Mensagem: ${formData.mensagem}`;
                       </div>
                     </div>
 
-                    <div>
-                      <label htmlFor="localidade" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">Cidade / Localidade no {CONFIG.region}</label>
-                      <input 
-                        type="text" 
-                        id="localidade"
-                        name="localidade"
-                        required
-                        value={formData.localidade}
-                        onChange={handleInputChange}
-                        placeholder={`Ex: ${CONFIG.city}`} 
-                        className="w-full px-4 py-3.5 bg-light border border-graphite rounded-xl focus:border-primary focus:outline-none text-sm transition-all"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="mensagem" className="text-[10px] font-mono uppercase tracking-wider text-dark/50 block mb-2">Mensagem ou Dúvida</label>
-                      <textarea 
-                        id="mensagem"
-                        name="mensagem"
-                        required
-                        rows="4"
-                        value={formData.mensagem}
-                        onChange={handleInputChange}
-                        placeholder="Descreve brevemente o que procuras (Ex: Instalação de AC no quarto, Limpeza de filtros, avaria...)" 
-                        className="w-full px-4 py-3.5 bg-light border border-graphite rounded-xl focus:border-primary focus:outline-none text-sm transition-all resize-none"
-                      ></textarea>
-                    </div>
-
                     <button 
                       type="submit"
-                      className="w-full py-3.5 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all shadow-md flex items-center justify-center gap-2"
+                      className="w-full py-4 bg-primary text-white text-xs font-manrope font-extrabold uppercase tracking-widest rounded-xl hover:bg-primary/95 transition-all shadow-md flex items-center justify-center gap-2"
                     >
-                      Enviar Mensagem & Orçamentar <ChevronRight size={16} />
+                      Liguem-me Grátis em 15 Minutos <ChevronRight size={16} />
                     </button>
+                    
+                    {/* Selos de Risco Zero */}
+                    <div className="pt-6 border-t border-graphite grid grid-cols-3 gap-2 text-center text-[9px] font-mono uppercase tracking-widest text-dark/40 font-bold">
+                      <span>✓ Sem Compromisso</span>
+                      <span>✓ Garantia Escrita</span>
+                      <span>✓ Método Sem Sujidade</span>
+                    </div>
                   </form>
                 )}
 
@@ -993,7 +1277,7 @@ Mensagem: ${formData.mensagem}`;
               Técnicos Ativos e Disponíveis no Terreno
             </div>
           </div>
-
+          
           <div>
             <h4 className="text-white font-manrope font-extrabold uppercase text-xs mb-6 tracking-widest">Navegação</h4>
             <nav className="text-xs md:text-sm flex flex-col gap-3 font-medium">
@@ -1004,7 +1288,7 @@ Mensagem: ${formData.mensagem}`;
               <a href="#faq" className="hover:text-white transition-colors">Perguntas Comuns</a>
             </nav>
           </div>
-
+          
           <div>
             <h4 className="text-white font-manrope font-extrabold uppercase text-xs mb-6 tracking-widest">Contactos Rápidos</h4>
             <a href={`tel:${CONFIG.phoneLink}`} className="text-white block mb-2 text-xl md:text-2xl font-manrope font-extrabold hover:text-primary transition-colors">{CONFIG.phone}</a>
