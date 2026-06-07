@@ -541,13 +541,33 @@ Telefone: ${formData.telefone}`;
           </nav>
 
           <div className="flex items-center gap-4">
+            {/* Contacto telefónico direto em desktop */}
+            <div className="hidden lg:flex items-center gap-2 text-xs font-manrope font-extrabold text-dark/70 hover:text-primary transition-colors mr-2">
+              <div className="w-8 h-8 rounded-full bg-primary/5 flex items-center justify-center text-primary">
+                <Phone size={14} className="animate-pulse" />
+              </div>
+              <a href={`tel:${CONFIG.phoneLink}`} className="tracking-wider">{CONFIG.phone}</a>
+            </div>
+
+            {/* CTA Principal de Orçamento */}
             <button 
               onClick={() => openModal('Solicito contacto para agendamento de vistoria técnica geral.')}
-              className="px-5 py-2.5 bg-primary text-white border border-primary text-xs font-extrabold uppercase tracking-wider hover:bg-white hover:text-primary transition-all duration-300 shadow-sm"
-              aria-label="Entrar em contacto"
+              className="group hidden sm:inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-primary text-white border border-primary text-xs font-manrope font-extrabold uppercase tracking-wider rounded-full hover:bg-white hover:text-primary hover:scale-[1.03] active:scale-95 hover:shadow-[0_4px_25px_rgba(0,69,140,0.3)] transition-all duration-300 shadow-md"
+              aria-label="Pedir Orçamento Grátis"
             >
-              Entrar em contacto
+              <span>Orçamento Grátis</span>
+              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
             </button>
+            
+            {/* CTA para Mobile (Ligar Direto) */}
+            <a 
+              href={`tel:${CONFIG.phoneLink}`}
+              className="sm:hidden flex w-11 h-11 bg-primary text-white rounded-full items-center justify-center hover:scale-105 active:scale-[0.93] hover:shadow-lg transition-all duration-300 relative shadow-md"
+              aria-label="Ligar para a Climacore"
+            >
+              <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping opacity-75" />
+              <Phone size={16} className="relative z-10" />
+            </a>
             
             <button 
               className="md:hidden text-dark p-2 bg-dark/5 rounded-lg hover:bg-dark/10 active:scale-95" 
@@ -575,32 +595,94 @@ Telefone: ${formData.telefone}`;
       {/* Menu Mobile Overlay */}
       <div 
         id="mobile-navigation-menu" 
-        className={`md:hidden fixed inset-0 bg-white z-[999] flex flex-col transition-all duration-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}
+        className={`md:hidden fixed inset-0 bg-dark z-[1100] flex flex-col transition-all duration-500 ease-in-out transform-gpu ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}
         aria-hidden={!isMenuOpen}
       >
-        <div className="flex-1 pt-28 pb-10 px-6 flex flex-col items-center justify-between">
-          <nav className="flex flex-col items-center gap-8 w-full">
-            <a href="#about" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Porquê Nós</a>
-            <a href="#testimonials" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Testemunhos</a>
-            <a href="#services" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Serviços</a>
-            <a href="#simulator" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Simulador</a>
-            <a href="#faq" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Perguntas Comuns</a>
-            <a href="#contact" tabIndex={isMenuOpen ? 0 : -1} onClick={() => setIsMenuOpen(false)} className="text-lg font-manrope font-extrabold uppercase text-dark">Pedir Orçamento</a>
+        {/* Cabeçalho do Menu para manter alinhamento */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 w-full bg-[#0A0A14]">
+          <DynamicLogo light={true} />
+          <button 
+            className="text-white p-2 bg-white/5 rounded-lg hover:bg-white/10 active:scale-95" 
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Fechar menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col justify-between gap-8">
+          <nav className="flex flex-col gap-4 w-full">
+            <a 
+              href="#about" 
+              tabIndex={isMenuOpen ? 0 : -1} 
+              onClick={() => setIsMenuOpen(false)} 
+              className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-manrope font-extrabold uppercase text-xs tracking-wider border border-white/5 transition-all"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary"><ShieldCheck size={18} /></div>
+              <span>Porquê Nós</span>
+            </a>
+            <a 
+              href="#testimonials" 
+              tabIndex={isMenuOpen ? 0 : -1} 
+              onClick={() => setIsMenuOpen(false)} 
+              className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-manrope font-extrabold uppercase text-xs tracking-wider border border-white/5 transition-all"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary"><Star size={18} /></div>
+              <span>Testemunhos</span>
+            </a>
+            <a 
+              href="#services" 
+              tabIndex={isMenuOpen ? 0 : -1} 
+              onClick={() => setIsMenuOpen(false)} 
+              className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-manrope font-extrabold uppercase text-xs tracking-wider border border-white/5 transition-all"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary"><Wrench size={18} /></div>
+              <span>Serviços</span>
+            </a>
+            <a 
+              href="#simulator" 
+              tabIndex={isMenuOpen ? 0 : -1} 
+              onClick={() => setIsMenuOpen(false)} 
+              className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-manrope font-extrabold uppercase text-xs tracking-wider border border-white/5 transition-all"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary"><Thermometer size={18} /></div>
+              <span>Simulador</span>
+            </a>
+            <a 
+              href="#faq" 
+              tabIndex={isMenuOpen ? 0 : -1} 
+              onClick={() => setIsMenuOpen(false)} 
+              className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-manrope font-extrabold uppercase text-xs tracking-wider border border-white/5 transition-all"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary"><MessageSquare size={18} /></div>
+              <span>Perguntas Comuns</span>
+            </a>
           </nav>
           
-          <div className="w-full max-w-xs flex flex-col gap-4 items-center">
-            <button 
-              onClick={(e) => {
-                setIsMenuOpen(false);
-                openModal('Solicito contacto para agendamento de vistoria técnica geral.');
-              }}
-              tabIndex={isMenuOpen ? 0 : -1}
-              className="w-full py-4 bg-primary text-white text-center text-sm font-extrabold uppercase tracking-wider shadow-lg"
-            >
-              Entrar em contacto
-            </button>
-            <span className="text-[10px] uppercase font-mono tracking-widest text-dark/30 flex items-center gap-1.5">
-              <Award size={12} /> Instalações Legais em Todo o {CONFIG.region}
+          <div className="w-full flex flex-col gap-6 items-center">
+            <div className="w-full grid grid-cols-2 gap-3">
+              <a 
+                href={`tel:${CONFIG.phoneLink}`}
+                className="flex items-center justify-center gap-2 py-4 bg-white/5 border border-white/10 text-white rounded-2xl text-xs font-manrope font-extrabold uppercase tracking-wider hover:bg-white/10 transition-all active:scale-95"
+              >
+                <Phone size={14} /> Ligar
+              </a>
+              <button 
+                onClick={(e) => {
+                  setIsMenuOpen(false);
+                  openModal('Solicito contacto para agendamento de vistoria técnica geral.');
+                }}
+                tabIndex={isMenuOpen ? 0 : -1}
+                className="flex items-center justify-center gap-2 py-4 bg-primary text-white rounded-2xl text-xs font-manrope font-extrabold uppercase tracking-wider hover:bg-primary/90 transition-all active:scale-95 shadow-lg"
+              >
+                Orçamento
+              </button>
+            </div>
+            <span className="text-[9px] uppercase font-mono tracking-widest text-white/40 flex items-center gap-1.5 font-bold">
+              <Award size={12} className="text-primary" /> Instalações Legais em Todo o {CONFIG.region}
             </span>
           </div>
         </div>
@@ -631,7 +713,7 @@ Telefone: ${formData.telefone}`;
               +2.500 Equipamentos Instalados | Técnicos Credenciados APA
             </div>
             
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-manrope font-extrabold text-dark leading-tight tracking-tight mb-6">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-manrope font-extrabold text-dark leading-tight tracking-tight mb-6">
               O Rigor da Climatização.<br />
               <span className="text-primary italic">Alta Eficiência sob Medida.</span>
             </h1>
@@ -979,8 +1061,8 @@ Telefone: ${formData.telefone}`;
                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6">
                     <Wind size={24} />
                   </div>
-                  <h3 className="text-lg font-manrope font-extrabold text-dark mb-4 uppercase">Instalação de AC</h3>
-                  <p className="text-xs md:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
+                  <h3 className="text-base sm:text-lg font-manrope font-extrabold text-dark mb-4 uppercase leading-tight">Instalação de AC</h3>
+                  <p className="text-xs sm:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
                     Instalação e dimensionamento profissional de sistemas de ar condicionado (Mural, Consola, Conduta e Multi-Split) adaptados exatamente ao teu espaço residencial ou comercial.
                   </p>
                 </div>
@@ -998,8 +1080,8 @@ Telefone: ${formData.telefone}`;
                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6">
                     <Wrench size={24} />
                   </div>
-                  <h3 className="text-lg font-manrope font-extrabold text-dark mb-4 uppercase">Manutenção & Limpeza</h3>
-                  <p className="text-xs md:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
+                  <h3 className="text-base sm:text-lg font-manrope font-extrabold text-dark mb-4 uppercase leading-tight">Manutenção & Limpeza</h3>
+                  <p className="text-xs sm:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
                     Higienização profunda de filtros, desinfeção contra bactérias e fungos, verificação de drenagens e controlo de pressões de gás para garantir ar saudável e consumos de luz baixos.
                   </p>
                 </div>
@@ -1017,8 +1099,8 @@ Telefone: ${formData.telefone}`;
                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6">
                     <Activity size={24} />
                   </div>
-                  <h3 className="text-lg font-manrope font-extrabold text-dark mb-4 uppercase">Assistência & Reparação</h3>
-                  <p className="text-xs md:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
+                  <h3 className="text-base sm:text-lg font-manrope font-extrabold text-dark mb-4 uppercase leading-tight">Assistência & Reparação</h3>
+                  <p className="text-xs sm:text-sm text-dark/60 leading-relaxed mb-6 font-medium">
                     Deteção de fugas de refrigerante, avarias elétricas ou de compressores, e reparação técnica em todas as marcas líderes com peças originais e diagnóstico rápido.
                   </p>
                 </div>
@@ -1302,7 +1384,7 @@ Telefone: ${formData.telefone}`;
         
         <div className="text-center text-[9px] font-mono tracking-widest pt-8 border-t border-white/5 uppercase">
            <span className="opacity-40">© {new Date().getFullYear()} {CONFIG.companyName}. Todos os direitos reservados. Foco em Eficiência Energética. Criado por </span>
-           <span className="text-white font-bold">NEXTBRND</span>.
+           <span className="text-white font-bold">Tomás Afonso</span>.
         </div>
       </footer>
 
